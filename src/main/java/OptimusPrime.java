@@ -13,6 +13,7 @@ public class OptimusPrime {
         System.out.println(line);
         System.out.println(greetText);
         System.out.println(line);
+        TaskList tasks = new TaskList();
 
 
         while(true){
@@ -23,13 +24,14 @@ public class OptimusPrime {
                 System.out.println(byeText);
                 System.out.println(line);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                String list = tasks.getTasks(tasks);
+                System.out.println(list);
             } else {
-                System.out.println("Optimus Prime: " +  input);
-                System.out.println(line);
+                tasks.addToList(input);
+                System.out.println("added: " +  input);
             }
+            System.out.println(line);
         }
-
-
-
     }
 }
