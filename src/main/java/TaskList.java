@@ -11,9 +11,16 @@ public class TaskList {
         pointer ++;
     }
 
-    public void printTasks(TaskList S){
-        for (int i = 1; i <= pointer; i ++){
-            System.out.println(i + ". " + list[i - 1]);
+    public String getTasks(TaskList S){
+
+        if (pointer == 0){
+            return "You have nothing on your list!";
         }
+        String tasks = "";
+        for (int i = 1; i <= pointer - 1; i ++){
+            tasks += i + ". " + list[i - 1] + "\n";
+        }
+        tasks += (pointer) + ". " + list[pointer - 1];
+        return tasks;
     }
 }
