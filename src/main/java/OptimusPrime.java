@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Scanner;
 
 public class OptimusPrime {
@@ -27,8 +28,21 @@ public class OptimusPrime {
             } else if (input.equalsIgnoreCase("list")) {
                 String list = tasks.getTasks(tasks);
                 System.out.println(list);
+            } else if (input.toLowerCase().contains("unmark")) {
+                char itemToAdd = input.charAt(input.length() - 1);
+                int item = itemToAdd - '0';
+                Task task = tasks.markIncomplete(item);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(task);
+            } else if (input.toLowerCase().contains("mark")) {
+                char itemToAdd = input.charAt(input.length() - 1);
+                int item = itemToAdd - '0';
+                System.out.println("Debug:: " + item);
+                Task task = tasks.markComplete(item);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(task);
             } else {
-                tasks.addToList(input);
+                tasks.addToList(new Task(input));
                 System.out.println("added: " +  input);
             }
             System.out.println(line);
