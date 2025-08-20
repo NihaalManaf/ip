@@ -1,12 +1,12 @@
 public class TaskList {
 
-    String[] list = new String[100];
+    Task[] list = new Task[100];
     int pointer = 0;
 
     public TaskList() {}
 
 
-    public void addToList(String task){
+    public void addToList(Task task){
         list[pointer] = task;
         pointer ++;
     }
@@ -18,9 +18,9 @@ public class TaskList {
         }
         String tasks = "";
         for (int i = 1; i <= pointer - 1; i ++){
-            tasks += i + ". " + list[i - 1] + "\n";
+            tasks += i + ". " + list[i - 1].toString() + "\n";
         }
-        tasks += (pointer) + ". " + list[pointer - 1];
+        tasks += (pointer) + ". " + list[pointer - 1].toString();
         return tasks;
     }
 }
