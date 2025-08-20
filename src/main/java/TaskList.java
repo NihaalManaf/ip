@@ -11,6 +11,18 @@ public class TaskList {
         pointer ++;
     }
 
+    public Task markComplete(int i){
+        Task task = list[i - 1];
+        task.markComplete();
+        return task;
+    }
+
+    public Task markUncomplete(int i){
+        Task task = list[i - 1];
+        task.markUncompleted();
+        return task;
+    }
+
     public String getTasks(TaskList S){
 
         if (pointer == 0){
