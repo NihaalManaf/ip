@@ -12,12 +12,21 @@ public class TaskList {
     }
 
     public Task markComplete(int i){
+
+        if (i < 1 || i > pointer ){
+            return null;
+        }
+
         Task task = list[i - 1];
         task.markComplete();
         return task;
     }
 
-    public Task markUncomplete(int i){
+    public Task markIncomplete(int i){
+
+        if (i < 1 || i > pointer ){
+            return null;
+        }
         Task task = list[i - 1];
         task.markUncompleted();
         return task;
