@@ -18,7 +18,7 @@ public class OptimusPrime {
 
 
         while(true){
-            System.out.print("User: ");
+            System.out.println("User:");
             String input = scanner.nextLine();
             System.out.println(line);
             if (input.equalsIgnoreCase("bye")) {
@@ -34,7 +34,6 @@ public class OptimusPrime {
             } else if (input.toLowerCase().contains("mark")) {
                 char itemToAdd = input.charAt(input.length() - 1);
                 int item = itemToAdd - '0';
-                System.out.println("Debug:: " + item);
                 Task task = tasks.markComplete(item);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(task);
