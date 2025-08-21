@@ -1,0 +1,11 @@
+hello
+todo test the chatbot
+deadline submit hw /by tomorrowwwwwww
+event discuss hw /from tomorow /to next year
+mark
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
