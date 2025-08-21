@@ -4,7 +4,7 @@ public class Todos extends Task{
         super(name);
     }
 
-    static String mark = "[T]";
+    final static String mark = "[T]";
 
     @Override
     public String toString() {
