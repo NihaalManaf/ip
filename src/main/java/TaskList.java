@@ -16,22 +16,34 @@ public class TaskList {
     public String createTask(String taskName, String metadata){
 
         Task task;
+        String name = "";
+        if (!metadata.contains("/")){
+            name = metadata;
+        } else {
+            name = metadata.substring(0, metadata.indexOf("/")).trim();
+        }
 
         if (Objects.equals(taskName, "todo")) {
-            task = new Todos(taskName);
+            task = new Todos(name);
         } else if(Objects.equals(taskName, "deadline")) {
             String subString = "/by";
-            String finalDate = metadata.substring(metadata.indexOf(subString));
-            task = new Deadlines(taskName, finalDate);
+            String finalDate = metadata
+                    .substring(metadata.indexOf(subString))
+                    .replaceAll(subString, "")
+                    .trim();
+            task = new Deadlines(name, finalDate);
         } else if(Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
             String startDate = metadata.substring(
                     metadata.indexOf(firstSubString),
-                    metadata.indexOf(secondSubString)
-            );
-            String endDate = metadata.substring(metadata.indexOf(secondSubString));
-            task = new Events(taskName, startDate, endDate);
+                    metadata.indexOf(secondSubString))
+                    .replaceAll(firstSubString, "")
+                    .trim();
+            String endDate = metadata.substring(metadata.indexOf(secondSubString))
+                    .replaceAll(secondSubString, "")
+                    .trim();
+            task = new Events(name, startDate, endDate);
         } else {
             return "Error in reading task!";
         }
