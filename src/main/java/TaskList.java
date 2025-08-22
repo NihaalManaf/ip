@@ -1,4 +1,5 @@
 import exceptions.InvalidArugmentException;
+import exceptions.InvalidDeleteArgumentException;
 import exceptions.MissingDeadlineArgumentException;
 import exceptions.MissingEventArgumentException;
 
