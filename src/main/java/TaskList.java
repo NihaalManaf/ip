@@ -1,20 +1,20 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class TaskList {
 
     Task[] list = new Task[100];
-    int pointer = 0;
+    ArrayList<Task> taskList = new ArrayList<>();
 
     public TaskList() {}
 
 
     public void addToList(Task task){
-        list[pointer] = task;
-        pointer ++;
+        taskList.add(task);
     }
 
     public String createTask(String taskName, String metadata) throws MissingArugmentException{
-
 
         Task task;
         String name = "";
@@ -23,7 +23,6 @@ public class TaskList {
         } else {
             name = metadata.substring(0, metadata.indexOf("/")).trim();
         }
-
 
         if (Objects.equals(taskName, "todo")) {
             task = new Todos(name);
@@ -66,45 +65,43 @@ public class TaskList {
         } else {
             return "Error in reading task!";
         }
-        list[pointer] = task;
-        pointer ++;
+        taskList.add(task);
 
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
-                + "Now you have " + pointer +" tasks in the list.";
+                + "Now you have " + taskList.size() +" tasks in the list.";
     }
 
     public Task markComplete(int i){
 
-        if (i < 1 || i > pointer ){
+        if (i < 1 || i > taskList.size() ){
             return null;
         }
-
-        Task task = list[i - 1];
+        Task task = taskList.get(i - 1);
         task.markComplete();
         return task;
     }
 
     public Task markIncomplete(int i){
 
-        if (i < 1 || i > pointer ){
+        if (i < 1 || i > taskList.size() ){
             return null;
         }
-        Task task = list[i - 1];
+        Task task = taskList.get(i - 1);
         task.markUncompleted();
         return task;
     }
 
     public String getTasks(TaskList S){
 
-        if (pointer == 0){
+        if (taskList.isEmpty()){
             return "You have nothing on your list!";
         }
         String tasks = "";
-        for (int i = 1; i <= pointer - 1; i ++){
-            tasks += i + ". " + list[i - 1].toString() + "\n";
+        for (int i = 1; i <= taskList.size() - 1; i ++){
+            tasks += i + ". " + taskList.get(i - 1).toString() + "\n";
         }
-        tasks += (pointer) + ". " + list[pointer - 1].toString();
+        tasks += (taskList.size()) + ". " + taskList.get(taskList.size() - 1) .toString();
         return tasks;
     }
 }
