@@ -8,4 +8,8 @@ mark 2
 list
 unmark 1
 list
+helloooo
+todo
+deadline
+event
 bye
