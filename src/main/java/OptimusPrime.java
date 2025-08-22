@@ -9,7 +9,7 @@ public class OptimusPrime {
         Scanner scanner = new Scanner(System.in);
 
         String line = "-----------------------------------------------";
-        String greetText = "Hello! I'm Optimus Prime, Leader of the Autobots\nLWhat can I do for you?";
+        String greetText = "Hello! I'm Optimus Prime, Leader of the Autobots\nWhat can I do for you?";
         String byeText = "Autobots, Roll Out!";
 
         System.out.println(line);
