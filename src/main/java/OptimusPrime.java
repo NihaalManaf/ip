@@ -54,10 +54,18 @@ public class OptimusPrime {
                 try {
                     String response = tasks.createTask(taskName, metaData);
                     System.out.println(response);
-                } catch (MissingArugmentException e){
+                } catch (InvalidArugmentException e){
                     System.out.println(e.getMessage());
                 }
 
+            } else if (input.toLowerCase().contains("delete")) {
+                try {
+                    int toDelete = Integer.parseInt(input.split(" ")[1]);
+                    String response = tasks.deleteTask(toDelete);
+                    System.out.println(response);
+                } catch (InvalidArugmentException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.println("Human... Please enter a valid command...");
             }
