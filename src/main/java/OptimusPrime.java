@@ -1,4 +1,4 @@
-import exceptions.MissingArugmentException;
+import exceptions.InvalidArugmentException;
 
 import java.util.Scanner;
 

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class MissingDeadlineArgumentException extends MissingArugmentException{
+public class MissingDeadlineArgumentException extends InvalidArugmentException {
     public MissingDeadlineArgumentException(String string) {
         super(string);
     }

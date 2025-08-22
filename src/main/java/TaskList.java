@@ -1,4 +1,4 @@
-import exceptions.MissingArugmentException;
+import exceptions.InvalidArugmentException;
 import exceptions.MissingDeadlineArgumentException;
 import exceptions.MissingEventArgumentException;
 
@@ -17,7 +17,7 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public String createTask(String taskName, String metadata) throws MissingArugmentException {
+    public String createTask(String taskName, String metadata) throws InvalidArugmentException {
 
         Task task;
         String name = "";
@@ -31,7 +31,7 @@ public class TaskList {
             task = new Todos(name);
 
             if(metadata.isEmpty()) {
-                throw new MissingArugmentException(
+                throw new InvalidArugmentException(
                         "Human... You must do something...\nTell me what you want to do after the todo command...");
             }
 
