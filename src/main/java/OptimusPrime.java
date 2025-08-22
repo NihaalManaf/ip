@@ -6,6 +6,35 @@ public class OptimusPrime {
 
     public static void main(String[] args) {
 
+        enum CommandType {
+            BYE,
+            MARK,
+            UNMARK,
+            LIST,
+            TASK,
+            DELETE,
+            UNKNOWN;
+
+
+            public static CommandType fromString(String input) {
+                if (input == null) {
+                    return UNKNOWN;
+                }
+                return switch (input.toLowerCase()) {
+                    case "bye" -> BYE;
+                    case "mark" -> MARK;
+                    case "unmark" -> UNMARK;
+                    case "list" -> LIST;
+                    case "todo" -> TASK;
+                    case "deadline" -> TASK;
+                    case "event" -> TASK;
+                    case "delete" -> DELETE;
+                    default -> UNKNOWN;
+                };
+            }
+        }
+
+
         Scanner scanner = new Scanner(System.in);
 
         String line = "-----------------------------------------------";
@@ -18,56 +47,59 @@ public class OptimusPrime {
         TaskList tasks = new TaskList();
 
 
-        while(true){
+        main: while(true){
             System.out.println("User:");
             String input = scanner.nextLine();
+            String inputCommand = input.split(" ")[0];
+            CommandType commandType = CommandType.fromString(inputCommand);
             System.out.println(line);
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println(byeText);
-                System.out.println(line);
-                break;
-
-            } else if (input.toLowerCase().contains("unmark")) {
-                char itemToAdd = input.charAt(input.length() - 1);
-                int item = itemToAdd - '0';
-                Task task = tasks.markIncomplete(item);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(task);
-
-            } else if (input.toLowerCase().contains("mark")) {
-                char itemToAdd = input.charAt(input.length() - 1);
-                int item = itemToAdd - '0';
-                Task task = tasks.markComplete(item);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task);
-
-            } else if (input.equalsIgnoreCase("list")) {
-                String list = tasks.getTasks(tasks);
-                System.out.println(list);
-
-            } else if (input.toLowerCase().contains("todo")
-                        || input.toLowerCase().contains("deadline")
-                        || input.toLowerCase().contains("event")) {
-                String taskName = input.split(" ")[0];
-                String metaData = input.replaceAll(taskName, "").trim();
-
-                try {
-                    String response = tasks.createTask(taskName, metaData);
-                    System.out.println(response);
-                } catch (InvalidArugmentException e){
-                    System.out.println(e.getMessage());
+            switch (commandType){
+                case BYE -> {
+                    System.out.println(byeText);
+                    System.out.println(line);
+                    break main;
                 }
-
-            } else if (input.toLowerCase().contains("delete")) {
-                try {
-                    int toDelete = Integer.parseInt(input.split(" ")[1]);
-                    String response = tasks.deleteTask(toDelete);
-                    System.out.println(response);
-                } catch (InvalidArugmentException e) {
-                    System.out.println(e.getMessage());
+                case UNMARK -> {
+                    char itemToAdd = input.charAt(input.length() - 1);
+                    int item = itemToAdd - '0';
+                    Task task = tasks.markIncomplete(item);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(task);
                 }
-            } else {
-                System.out.println("Human... Please enter a valid command...");
+                case MARK -> {
+                    char itemToAdd = input.charAt(input.length() - 1);
+                    int item = itemToAdd - '0';
+                    Task task = tasks.markComplete(item);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(task);
+                }
+                case LIST -> {
+                    String list = tasks.getTasks(tasks);
+                    System.out.println(list);
+                }
+                case TASK -> {
+                    String taskName = input.split(" ")[0];
+                    String metaData = input.replaceAll(taskName, "").trim();
+
+                    try {
+                        String response = tasks.createTask(taskName, metaData);
+                        System.out.println(response);
+                    } catch (InvalidArugmentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case DELETE -> {
+                    try {
+                        int toDelete = Integer.parseInt(input.split(" ")[1]);
+                        String response = tasks.deleteTask(toDelete);
+                        System.out.println(response);
+                    } catch (InvalidArugmentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case UNKNOWN -> {
+                    System.out.println("Human... Please enter a valid command...");
+                }
             }
             System.out.println(line);
         }
