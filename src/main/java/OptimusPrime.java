@@ -25,29 +25,39 @@ public class OptimusPrime {
                 System.out.println(byeText);
                 System.out.println(line);
                 break;
+
             } else if (input.toLowerCase().contains("unmark")) {
                 char itemToAdd = input.charAt(input.length() - 1);
                 int item = itemToAdd - '0';
                 Task task = tasks.markIncomplete(item);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task);
+
             } else if (input.toLowerCase().contains("mark")) {
                 char itemToAdd = input.charAt(input.length() - 1);
                 int item = itemToAdd - '0';
                 Task task = tasks.markComplete(item);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(task);
+
             } else if (input.equalsIgnoreCase("list")) {
                 String list = tasks.getTasks(tasks);
                 System.out.println(list);
+
             } else if (input.toLowerCase().contains("todo")
                         || input.toLowerCase().contains("deadline")
                         || input.toLowerCase().contains("event")) {
-
                 String taskName = input.split(" ")[0];
                 String metaData = input.replaceAll(taskName, "").trim();
-                String response = tasks.createTask(taskName, metaData);
-                System.out.println(response);
+
+                try {
+                    String response = tasks.createTask(taskName, metaData);
+                    System.out.println(response);
+                } catch (MissingArugmentException e){
+                    String x = e.toString().split(" ")[0];
+                    System.out.println(e.toString().replaceAll(x, "").trim());
+                }
+
             } else {
                 System.out.println("Human... Please enter a valid command...");
             }
