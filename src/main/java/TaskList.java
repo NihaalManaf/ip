@@ -1,4 +1,7 @@
-import java.lang.reflect.Array;
+import exceptions.MissingArugmentException;
+import exceptions.MissingDeadlineArgumentException;
+import exceptions.MissingEventArgumentException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -14,7 +17,7 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public String createTask(String taskName, String metadata) throws MissingArugmentException{
+    public String createTask(String taskName, String metadata) throws MissingArugmentException {
 
         Task task;
         String name = "";

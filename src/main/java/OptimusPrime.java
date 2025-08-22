@@ -1,4 +1,5 @@
-import javax.swing.plaf.synth.SynthTextAreaUI;
+import exceptions.MissingArugmentException;
+
 import java.util.Scanner;
 
 public class OptimusPrime {
