@@ -110,8 +110,8 @@ public class TaskList {
     }
 
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
-
-        if (i < 0 || i > taskList.size()) {
+        i --;
+        if (i < 0 || i > taskList.size() - 1) {
             throw new InvalidDeleteArgumentException(
                     "Human... You simply cannot delete nothing...\nEnter a valid task number...");
         }
@@ -120,7 +120,7 @@ public class TaskList {
         taskList.remove(task);
         return
                 "Noted. I've removed this task:\n"
-                + task.toString()
+                + task.toString() + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
 }
