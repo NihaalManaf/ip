@@ -54,8 +54,7 @@ public class OptimusPrime {
                     String response = tasks.createTask(taskName, metaData);
                     System.out.println(response);
                 } catch (MissingArugmentException e){
-                    String x = e.toString().split(" ")[0];
-                    System.out.println(e.toString().replaceAll(x, "").trim());
+                    System.out.println(e.getMessage());
                 }
 
             } else {
