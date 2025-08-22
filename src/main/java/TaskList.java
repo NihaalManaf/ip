@@ -13,7 +13,8 @@ public class TaskList {
         pointer ++;
     }
 
-    public String createTask(String taskName, String metadata){
+    public String createTask(String taskName, String metadata) throws MissingArugmentException{
+
 
         Task task;
         String name = "";
@@ -23,23 +24,41 @@ public class TaskList {
             name = metadata.substring(0, metadata.indexOf("/")).trim();
         }
 
+
         if (Objects.equals(taskName, "todo")) {
             task = new Todos(name);
+
+            if(metadata.isEmpty()) {
+                throw new MissingArugmentException(
+                        "Human... You must do something...\nTell me what you want to do after the todo command...");
+            }
+
         } else if(Objects.equals(taskName, "deadline")) {
             String subString = "/by";
+
+            if (! metadata.contains(subString)) {
+                throw new MissingDeadlineArgumentException(
+                        "The autobots normally enter their deadline proceeding a '/by' command..." );
+            }
             String finalDate = metadata
                     .substring(metadata.indexOf(subString))
                     .replaceAll(subString, "")
                     .trim();
             task = new Deadlines(name, finalDate);
+
         } else if(Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
+            if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
+                throw new MissingEventArgumentException(
+                        "The autobots normally enter their event proceeding a '/from' and '/to' command..." );
+            }
             String startDate = metadata.substring(
                     metadata.indexOf(firstSubString),
                     metadata.indexOf(secondSubString))
                     .replaceAll(firstSubString, "")
                     .trim();
+
             String endDate = metadata.substring(metadata.indexOf(secondSubString))
                     .replaceAll(secondSubString, "")
                     .trim();
