@@ -104,4 +104,14 @@ public class TaskList {
         tasks += (taskList.size()) + ". " + taskList.get(taskList.size() - 1) .toString();
         return tasks;
     }
+
+    public String deleteTask(int i){
+        Task task = taskList.get(i);
+        taskList.remove(task);
+        return
+                "Noted. I've removed this task:\n"
+                + task.toString()
+                + "Now you have " + taskList.size() + " tasks in the list";
+    }
 }
+
