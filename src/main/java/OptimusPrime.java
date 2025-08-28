@@ -45,7 +45,7 @@ public class OptimusPrime {
         System.out.println(line);
         System.out.println(greetText);
         System.out.println(line);
-        TaskList tasks = new TaskList();
+        TaskList tasks = DatabaseHandler.readDatabase();;
 
 
         main: while(true){
@@ -58,6 +58,7 @@ public class OptimusPrime {
                 case BYE -> {
                     System.out.println(byeText);
                     System.out.println(line);
+                    DatabaseHandler.writeDatabase(tasks);
                     break main;
                 }
                 case UNMARK -> {
@@ -66,6 +67,7 @@ public class OptimusPrime {
                     Task task = tasks.markIncomplete(item);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(task);
+                    DatabaseHandler.writeDatabase(tasks);
                 }
                 case MARK -> {
                     char itemToAdd = input.charAt(input.length() - 1);
@@ -73,10 +75,10 @@ public class OptimusPrime {
                     Task task = tasks.markComplete(item);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(task);
+                    DatabaseHandler.writeDatabase(tasks);
                 }
                 case LIST -> {
                     String list = tasks.getTasks(tasks);
-                    DatabaseHandler.writeDatabase(tasks);
                     System.out.println(list);
                 }
                 case TASK -> {
@@ -89,6 +91,7 @@ public class OptimusPrime {
                     } catch (InvalidArugmentException e){
                         System.out.println(e.getMessage());
                     }
+                    DatabaseHandler.writeDatabase(tasks);
                 }
                 case DELETE -> {
                     try {
@@ -98,9 +101,11 @@ public class OptimusPrime {
                     } catch (InvalidArugmentException e) {
                         System.out.println(e.getMessage());
                     }
+                    DatabaseHandler.writeDatabase(tasks);
                 }
                 case UNKNOWN -> {
                     System.out.println("Human... Please enter a valid command...");
+                    DatabaseHandler.readDatabase();
                 }
             }
             System.out.println(line);
