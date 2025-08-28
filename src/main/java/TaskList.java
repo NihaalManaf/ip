@@ -123,5 +123,9 @@ public class TaskList {
                 + task.toString() + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
+
+    public ArrayList<Task> getList() { return this.taskList; }
+
+
 }
 

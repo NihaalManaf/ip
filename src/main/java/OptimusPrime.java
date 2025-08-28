@@ -1,5 +1,6 @@
 import exceptions.InvalidArugmentException;
 
+import javax.xml.crypto.Data;
 import java.util.Scanner;
 
 public class OptimusPrime {
@@ -75,6 +76,7 @@ public class OptimusPrime {
                 }
                 case LIST -> {
                     String list = tasks.getTasks(tasks);
+                    DatabaseHandler.writeDatabase(tasks);
                     System.out.println(list);
                 }
                 case TASK -> {
