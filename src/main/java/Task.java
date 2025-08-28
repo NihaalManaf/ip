@@ -43,10 +43,35 @@ public class Task {
         }
     }
 
+    public static Task createTask(String type, boolean isComplete, String Description, String[] MetaData) {
+        Task task;
+        if (Objects.equals(type, "todo")) {
+           task = new Todos(Description, isComplete);
+        } else if(Objects.equals(type, "deadline")){
+            // Check if metadata exists and has at least one element
+            if (MetaData != null && MetaData.length > 0 && MetaData[0] != null) {
+                task = new Deadlines(Description, MetaData[0], isComplete);
+            } else {
+                // Create deadline with empty date if metadata is missing
+                task = new Deadlines(Description, "", isComplete);
+            }
+        } else if(Objects.equals(type, "event")){
+            // Check if metadata exists and has at least two elements
+            if (MetaData != null && MetaData.length >= 2 && MetaData[0] != null && MetaData[1] != null) {
+                task = new Events(Description, MetaData[0], MetaData[1], isComplete);
+            } else {
+                // Create event with empty dates if metadata is missing
+                task = new Events(Description, "", "", isComplete);
+            }
+        } else {
+            return null; // Return null for unknown task types
+        }
+        return task;
+    }
     @Override
     public String toString(){
         String box = "[ ]";
-        if (completed) {
+        if (isComplete) {
             box = "[X]";
         }
 
