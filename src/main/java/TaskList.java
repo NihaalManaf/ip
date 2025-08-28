@@ -38,6 +38,7 @@ public class TaskList {
 
         } else if(Objects.equals(taskName, "deadline")) {
             String subString = "/by";
+            LocalDate ld = Parser.deadlineDateParser(metadata);
 
             if (! metadata.contains(subString)) {
                 throw new MissingDeadlineArgumentException(
@@ -52,6 +53,9 @@ public class TaskList {
         } else if(Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
+
+            LocalDate[] ld = Parser.eventDateParser(metadata);
+
             if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
                 throw new MissingEventArgumentException(
                         "The autobots normally enter their event proceeding a '/from' and '/to' command..." );
