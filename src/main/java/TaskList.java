@@ -29,7 +29,7 @@ public class TaskList {
         }
 
         if (Objects.equals(taskName, "todo")) {
-            task = new Todos(name);
+            task = new Todos(name, false);
 
             if(metadata.isEmpty()) {
                 throw new InvalidArugmentException(
@@ -47,7 +47,7 @@ public class TaskList {
                     .substring(metadata.indexOf(subString))
                     .replaceAll(subString, "")
                     .trim();
-            task = new Deadlines(name, finalDate);
+            task = new Deadlines(name, finalDate, false);
 
         } else if(Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
@@ -65,7 +65,7 @@ public class TaskList {
             String endDate = metadata.substring(metadata.indexOf(secondSubString))
                     .replaceAll(secondSubString, "")
                     .trim();
-            task = new Events(name, startDate, endDate);
+            task = new Events(name, startDate, endDate, false);
         } else {
             return "Error in reading task!";
         }

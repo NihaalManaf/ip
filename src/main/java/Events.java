@@ -4,11 +4,11 @@ public class Events extends Task{
     String fromDate;
     String toDate;
 
-    private final static String type = "Event";
+    private final static String type = "event";
 
 
-    public Events(String name, String fromDate, String toDate){
-        super(name);
+    public Events(String name, String fromDate, String toDate, boolean isComplete){
+        super(name, isComplete);
         this.fromDate = fromDate;
         this.toDate = toDate;
     }

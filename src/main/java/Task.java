@@ -2,22 +2,23 @@ import java.util.Objects;
 
 public class Task {
 
-    boolean completed = false;
+    boolean isComplete = false;
     private String name;
 
-    public Task(String name) {
+    public Task(String name, boolean isComplete) {
         this.name = name;
+        this.isComplete = isComplete;
     }
 
     public void markComplete(){
-        completed = true;
+        isComplete = true;
     }
 
     public void markUncompleted() {
-        completed = false;
+        isComplete = false;
     }
 
-    public static boolean getStatus(Task t) { return t.completed; }
+    public static boolean getStatus(Task t) { return t.isComplete; }
 
     public static String getName(Task t) { return t.name; }
 
@@ -26,13 +27,13 @@ public class Task {
     }
 
     public static String[] getMetaData(Task t) {
-        if (Objects.equals(t.getType(), "Todo")) {
+        if (Objects.equals(t.getType(), "todo")) {
             return null;
-        } else if(Objects.equals(t.getType(), "Deadline")) {
+        } else if(Objects.equals(t.getType(), "deadline")) {
             Deadlines task = (Deadlines) t;
             String deadline = task.deadline;
             return new String[] {deadline};
-        } else if(Objects.equals(t.getType(), "Event")) {
+        } else if(Objects.equals(t.getType(), "event")) {
             Events task = (Events) t;
             String startDate = task.fromDate;
             String endDate = task.toDate;

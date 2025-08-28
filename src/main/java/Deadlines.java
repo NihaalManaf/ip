@@ -2,10 +2,10 @@ public class Deadlines extends Task{
 
     String deadline;
     protected static String mark = "[D]";
-    private final static String type = "Deadline";
+    private final static String type = "deadline";
 
-    public Deadlines(String name, String date){
-        super(name);
+    public Deadlines(String name, String date, boolean isComplete){
+        super(name, isComplete);
         this.deadline = date;
     }
 
