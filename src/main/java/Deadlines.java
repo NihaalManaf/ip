@@ -14,6 +14,6 @@ public class Deadlines extends Task{
     public String getType() {return type;}
 
     public String toString() {
-        return mark + super.toString() + " (by: " + deadline + ")";
+        return mark + super.toString() + " (by: " + Parser.prettyDate(deadline[0]) + ")";
     }
 }

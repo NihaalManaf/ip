@@ -44,5 +44,8 @@ public final class Parser {
         return parsedDates;
     }
 
-
+    public static String prettyDate(LocalDate localDate){
+        return String.format("%d %s %d",
+                localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
+    }
 }

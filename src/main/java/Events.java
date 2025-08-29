@@ -19,6 +19,8 @@ public class Events extends Task{
 
     @Override
     public String toString() {
-        return mark + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
+        return mark + super.toString()
+                + " (from: " + Parser.prettyDate(fromDate)
+                + " to: " + Parser.prettyDate(toDate) + ")";
     }
 }
