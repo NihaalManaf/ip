@@ -1,16 +1,18 @@
+import java.time.LocalDate;
+
 public class Events extends Task{
 
     protected static String mark = "[E]";
-    String fromDate;
-    String toDate;
+    LocalDate fromDate;
+    LocalDate toDate;
 
     private final static String type = "event";
 
 
-    public Events(String name, String fromDate, String toDate, boolean isComplete){
+    public Events(String name, LocalDate[] dates, boolean isComplete){
         super(name, isComplete);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.fromDate = dates[0];
+        this.toDate = dates[1];
     }
 
     public String getType() {return type;}

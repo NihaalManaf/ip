@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.Arrays;
@@ -60,12 +61,12 @@ public final class DatabaseHandler {
                 boolean isComplete = Boolean.parseBoolean(rowInputs[2].trim());
                 String description = rowInputs[3].trim();
 
-                String[] metadata = new String[2];
+                LocalDate[] metadata = new LocalDate[2];
                 if (rowInputs.length > 4 && !rowInputs[4].trim().isEmpty()) {
-                    metadata[0] = rowInputs[4].trim();
+                    metadata[0] = LocalDate.parse(rowInputs[4].trim());
                 }
                 if (rowInputs.length > 5 && !rowInputs[5].trim().isEmpty()) {
-                    metadata[1] = rowInputs[5].trim();
+                    metadata[1] = LocalDate.parse(rowInputs[5].trim());
                 }
                 
                 Task task = Task.createTask(taskType, isComplete, description, metadata);
@@ -87,7 +88,7 @@ public final class DatabaseHandler {
             FileWriter writer = new FileWriter(filePath);
             for(int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
-                String[] metaData = Task.getMetaData(task);
+                LocalDate[] metaData = Task.getMetadata(task);
 
                 StringBuilder metaDataRepresentation = new StringBuilder();
 

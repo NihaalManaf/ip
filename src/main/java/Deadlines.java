@@ -1,10 +1,12 @@
+import java.time.LocalDate;
+
 public class Deadlines extends Task{
 
-    String deadline;
+    LocalDate[] deadline;
     protected static String mark = "[D]";
     private final static String type = "deadline";
 
-    public Deadlines(String name, String date, boolean isComplete){
+    public Deadlines(String name, LocalDate[] date, boolean isComplete){
         super(name, isComplete);
         this.deadline = date;
     }

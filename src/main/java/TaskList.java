@@ -38,39 +38,25 @@ public class TaskList {
             }
 
         } else if(Objects.equals(taskName, "deadline")) {
-            String subString = "/by";
-            LocalDate ld = Parser.deadlineDateParser(metadata);
-
-            if (! metadata.contains(subString)) {
+            if (! metadata.contains("/by")) {
                 throw new MissingDeadlineArgumentException(
                         "The autobots normally enter their deadline proceeding a '/by' command..." );
             }
-            String finalDate = metadata
-                    .substring(metadata.indexOf(subString))
-                    .replaceAll(subString, "")
-                    .trim();
-            task = new Deadlines(name, finalDate, false);
+            LocalDate[] localDate = Parser.deadlineDateParser(metadata);
+            task = new Deadlines(name, localDate, false);
 
         } else if(Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
 
-            LocalDate[] ld = Parser.eventDateParser(metadata);
+            LocalDate[] localDate = Parser.eventDateParser(metadata);
 
             if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
                 throw new MissingEventArgumentException(
                         "The autobots normally enter their event proceeding a '/from' and '/to' command..." );
             }
-            String startDate = metadata.substring(
-                    metadata.indexOf(firstSubString),
-                    metadata.indexOf(secondSubString))
-                    .replaceAll(firstSubString, "")
-                    .trim();
 
-            String endDate = metadata.substring(metadata.indexOf(secondSubString))
-                    .replaceAll(secondSubString, "")
-                    .trim();
-            task = new Events(name, startDate, endDate, false);
+            task = new Events(name, localDate, false);
         } else {
             return "Error in reading task!";
         }
