@@ -1,10 +1,13 @@
+package optimusprime.database;
+
+import optimusprime.tasks.TaskList;
+import optimusprime.tasks.Task;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 import java.io.File;
 
@@ -43,7 +46,7 @@ public final class DatabaseHandler {
         }
     }
     public DatabaseHandler() {}
-    static String filePath = "/Users/nihaalmanaf/Documents/The Entity's Code/ip/src/main/java/data/duke.txt";
+    static String filePath = "../src/main/java/db.txt";
 
     public static TaskList readDatabase() {
         TaskList tasks = new TaskList();
@@ -77,6 +80,7 @@ public final class DatabaseHandler {
             scanner.close();
             return tasks;
         } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
             System.out.println("FILE NOT FOUND LAH");
             return new TaskList();
         }

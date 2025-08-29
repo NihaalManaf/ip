@@ -1,4 +1,6 @@
-public class Todos extends Task{
+package optimusprime.tasks;
+
+public class Todos extends Task {
 
     public Todos(String name, boolean isComplete) {
         super(name, isComplete);

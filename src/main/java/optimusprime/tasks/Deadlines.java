@@ -1,6 +1,9 @@
+package optimusprime.tasks;
+
+import optimusprime.parser.Parser;
 import java.time.LocalDate;
 
-public class Deadlines extends Task{
+public class Deadlines extends Task {
 
     LocalDate[] deadline;
     protected static String mark = "[D]";

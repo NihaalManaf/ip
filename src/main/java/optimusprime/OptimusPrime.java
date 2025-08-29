@@ -1,6 +1,11 @@
-import exceptions.InvalidArugmentException;
+package optimusprime;
 
-import javax.xml.crypto.Data;
+import optimusprime.database.DatabaseHandler;
+import optimusprime.exceptions.InvalidArugmentException;
+import optimusprime.tasks.Task;
+import optimusprime.tasks.TaskList;
+import optimusprime.ui.ui;
+
 import java.util.Scanner;
 
 public class OptimusPrime {

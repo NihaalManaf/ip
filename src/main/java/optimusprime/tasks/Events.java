@@ -1,6 +1,9 @@
+package optimusprime.tasks;
+
+import optimusprime.parser.Parser;
 import java.time.LocalDate;
 
-public class Events extends Task{
+public class Events extends Task {
 
     protected static String mark = "[E]";
     LocalDate fromDate;

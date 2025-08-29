@@ -1,4 +1,4 @@
-package exceptions;
+package optimusprime.exceptions;
 
 public class MissingTodoArgumentException extends InvalidArugmentException {
     public MissingTodoArgumentException(String string) {

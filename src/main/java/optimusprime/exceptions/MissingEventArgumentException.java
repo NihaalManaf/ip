@@ -1,4 +1,4 @@
-package exceptions;
+package optimusprime.exceptions;
 
 public class MissingEventArgumentException extends InvalidArugmentException {
     public MissingEventArgumentException(String string) {
