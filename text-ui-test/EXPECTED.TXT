@@ -15,13 +15,13 @@ Now you have 1 tasks in the list.
 User:
 -----------------------------------------------
 Got it. I've added this task:
-[D][ ] submit hw (by: 2910-10-10)
+[D][ ] submit hw (by: 10 OCTOBER 2910)
 Now you have 2 tasks in the list.
 -----------------------------------------------
 User:
 -----------------------------------------------
 Got it. I've added this task:
-[E][ ] discuss hw (from: 1092-09-12 to: 2183-11-11)
+[E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
 Now you have 3 tasks in the list.
 -----------------------------------------------
 User:
@@ -37,13 +37,13 @@ Nice! I've marked this task as done:
 User:
 -----------------------------------------------
 Nice! I've marked this task as done:
-[D][X] submit hw (by: 2910-10-10)
+[D][X] submit hw (by: 10 OCTOBER 2910)
 -----------------------------------------------
 User:
 -----------------------------------------------
 1. [T][X] test the chatbot
-2. [D][X] submit hw (by: 2910-10-10)
-3. [E][ ] discuss hw (from: 1092-09-12 to: 2183-11-11)
+2. [D][X] submit hw (by: 10 OCTOBER 2910)
+3. [E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
 -----------------------------------------------
 User:
 -----------------------------------------------
@@ -53,8 +53,8 @@ OK, I've marked this task as not done yet:
 User:
 -----------------------------------------------
 1. [T][ ] test the chatbot
-2. [D][X] submit hw (by: 2910-10-10)
-3. [E][ ] discuss hw (from: 1092-09-12 to: 2183-11-11)
+2. [D][X] submit hw (by: 10 OCTOBER 2910)
+3. [E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
 -----------------------------------------------
 User:
 -----------------------------------------------
