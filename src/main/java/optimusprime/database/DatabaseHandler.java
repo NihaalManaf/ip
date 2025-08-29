@@ -46,7 +46,18 @@ public final class DatabaseHandler {
         }
     }
     public DatabaseHandler() {}
-    static String filePath = "../src/main/java/db.txt";
+    static String[] possiblePaths = {"testdb.txt", "../testdb.txt", "src/main/java/testdb.txt"};
+    
+    private static String findDatabaseFile() {
+        for (String path : possiblePaths) {
+            if (new File(path).exists()) {
+                return path;
+            }
+        }
+        return "testdb.txt"; // Default fallback
+    }
+    
+    static String filePath = findDatabaseFile();
 
     public static TaskList readDatabase() {
         TaskList tasks = new TaskList();
