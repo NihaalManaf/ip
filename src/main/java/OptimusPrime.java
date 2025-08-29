@@ -37,27 +37,19 @@ public class OptimusPrime {
 
 
         Scanner scanner = new Scanner(System.in);
-
-        String line = "-----------------------------------------------";
-        String greetText = "Hello! I'm Optimus Prime, Leader of the Autobots\nWhat can I do for you?";
-        String byeText = "Autobots, Roll Out!";
-
-        System.out.println(line);
-        System.out.println(greetText);
-        System.out.println(line);
         TaskList tasks = DatabaseHandler.readDatabase();;
-
+        ui.sayHi();
 
         main: while(true){
             System.out.println("User:");
             String input = scanner.nextLine();
             String inputCommand = input.split(" ")[0];
             CommandType commandType = CommandType.fromString(inputCommand);
-            System.out.println(line);
+
             switch (commandType){
                 case BYE -> {
-                    System.out.println(byeText);
-                    System.out.println(line);
+                    ui.drawLine();
+                    ui.sayBye();
                     DatabaseHandler.writeDatabase(tasks);
                     break main;
                 }
@@ -65,21 +57,19 @@ public class OptimusPrime {
                     char itemToAdd = input.charAt(input.length() - 1);
                     int item = itemToAdd - '0';
                     Task task = tasks.markIncomplete(item);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(task);
+                    ui.printWithLine("OK, I've marked this task as not done yet:\n" + task);
                     DatabaseHandler.writeDatabase(tasks);
                 }
                 case MARK -> {
                     char itemToAdd = input.charAt(input.length() - 1);
                     int item = itemToAdd - '0';
                     Task task = tasks.markComplete(item);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(task);
+                    ui.printWithLine("Nice! I've marked this task as done:\n" + task);
                     DatabaseHandler.writeDatabase(tasks);
                 }
                 case LIST -> {
                     String list = tasks.getTasks(tasks);
-                    System.out.println(list);
+                    ui.printWithLine(list);
                 }
                 case TASK -> {
                     String taskName = input.split(" ")[0];
@@ -87,9 +77,9 @@ public class OptimusPrime {
 
                     try {
                         String response = tasks.createTask(taskName, metaData);
-                        System.out.println(response);
+                        ui.printWithLine(response);
                     } catch (InvalidArugmentException e){
-                        System.out.println(e.getMessage());
+                        ui.printWithLine(e.getMessage());
                     }
                     DatabaseHandler.writeDatabase(tasks);
                 }
@@ -97,18 +87,17 @@ public class OptimusPrime {
                     try {
                         int toDelete = Integer.parseInt(input.split(" ")[1]);
                         String response = tasks.deleteTask(toDelete);
-                        System.out.println(response);
+                        ui.printWithLine(response);
                     } catch (InvalidArugmentException e) {
-                        System.out.println(e.getMessage());
+                        ui.printWithLine(e.getMessage());
                     }
                     DatabaseHandler.writeDatabase(tasks);
                 }
                 case UNKNOWN -> {
-                    System.out.println("Human... Please enter a valid command...");
+                    ui.printWithLine("Human... Please enter a valid command...");
                     DatabaseHandler.readDatabase();
                 }
             }
-            System.out.println(line);
         }
     }
 }
