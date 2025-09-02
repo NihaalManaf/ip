@@ -6,10 +6,13 @@ import java.time.format.DateTimeParseException;
 public final class Parser {
     public Parser() {}
 
-    public static LocalDate textToDateTime(String dateTime) {
-        return LocalDate.parse(dateTime);
-    }
-
+    /**
+     * Returns an array of LocalDate objects which is parsed from the metadata specifically for deadline tasks.
+     * metadata should not be empty
+     *
+     * @param metadata a String that includes the description and the deadline proceeded by the '/by' command
+     * @return An array of LocalDate objects of length 1 that contains the deadline
+     */
     public static LocalDate[] deadlineDateParser(String metadata) {
         String byDate = metadata.split("/by ")[1];
         try{
@@ -20,6 +23,14 @@ public final class Parser {
         }
     }
 
+    /**
+     * Returns an array of LocalDate objects which is parsed from the metadata specifically for event tasks.
+     * metadata should not be empty
+     *
+     * @param metadata a String that includes the description and the start date proceeded by the '/from' command and
+     *                 the end date proceeded by the /to command
+     * @return An array of LocalDate objects of length 2 that contains the start date (arr[0]) and end date (arr[1])
+     */
     public static LocalDate[] eventDateParser(String metadata) {
 
         String[] dates;
@@ -44,7 +55,13 @@ public final class Parser {
         return parsedDates;
     }
 
-    public static String prettyDate(LocalDate localDate){
+    /**
+     * Returns a human-readable String from a LocalDate object for greater readability
+     *
+     * @param localDate - a LocalDate object
+     * @return A prettified string of localdate
+     */
+    public static String prettifyDate(LocalDate localDate){
         return String.format("%d %s %d",
                 localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
     }
