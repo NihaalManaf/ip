@@ -67,7 +67,7 @@ public class TaskList {
 
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
-                + "Now you have " + taskList.size() +" tasks in the list.";
+                + "Now you have " + taskList.size() +" tasks in the list";
     }
 
     public Task markComplete(int i){
