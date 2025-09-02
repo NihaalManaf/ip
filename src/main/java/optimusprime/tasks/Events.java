@@ -23,7 +23,7 @@ public class Events extends Task {
     @Override
     public String toString() {
         return mark + super.toString()
-                + " (from: " + Parser.prettyDate(fromDate)
-                + " to: " + Parser.prettyDate(toDate) + ")";
+                + " (from: " + Parser.prettifyDate(fromDate)
+                + " to: " + Parser.prettifyDate(toDate) + ")";
     }
 }
