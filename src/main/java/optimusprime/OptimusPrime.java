@@ -42,7 +42,12 @@ public class OptimusPrime {
 
 
         Scanner scanner = new Scanner(System.in);
-        TaskList tasks = DatabaseHandler.readDatabase();;
+        TaskList tasks;
+        try {
+            tasks = DatabaseHandler.readDatabase();
+        } catch (Exception e){
+            tasks = new TaskList();
+        }
         ui.sayHi();
 
         main: while(true){
@@ -83,10 +88,14 @@ public class OptimusPrime {
                     try {
                         String response = tasks.createTask(taskName, metaData);
                         ui.printWithLine(response);
-                    } catch (InvalidArugmentException e){
+                    } catch (InvalidArugmentException e) {
                         ui.printWithLine(e.getMessage());
                     }
-                    DatabaseHandler.writeDatabase(tasks);
+                    try {
+                        DatabaseHandler.writeDatabase(tasks);
+                    } catch (Exception e) {
+                        System.out.println("Uh oh...The decepticons are coming...\nLet's add your task later");
+                    }
                 }
                 case DELETE -> {
                     try {
@@ -100,7 +109,6 @@ public class OptimusPrime {
                 }
                 case UNKNOWN -> {
                     ui.printWithLine("Human... Please enter a valid command...");
-                    DatabaseHandler.readDatabase();
                 }
             }
         }
