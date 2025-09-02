@@ -118,6 +118,25 @@ public class TaskList {
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
 
+    /**
+     * Prints a list of tasks that match a keyword input by user
+     *
+     * @param keyword Search String
+     * @return String of tasks to output to user
+     */
+
+    public String findTasks(String keyword) {
+        TaskList newList = new TaskList();
+        ArrayList<Task> currentList = getList();
+        for (Task task : currentList) {
+            if (Task.getName(task).contains(keyword)) {
+                newList.addToList(task);
+            }
+        }
+        return getTasks(newList);
+    }
+
+
     public ArrayList<Task> getList() { return this.taskList; }
 
 
