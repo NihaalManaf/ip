@@ -18,7 +18,9 @@ public class Events extends Task {
         this.toDate = dates[1];
     }
 
-    public String getType() {return type;}
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {

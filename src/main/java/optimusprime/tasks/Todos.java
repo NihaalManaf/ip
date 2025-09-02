@@ -9,7 +9,9 @@ public class Todos extends Task {
     private final static String mark = "[T]";
     private final static String type = "todo";
 
-    public String getType() {return type;}
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {

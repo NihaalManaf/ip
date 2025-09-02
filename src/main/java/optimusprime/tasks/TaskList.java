@@ -1,7 +1,7 @@
 package optimusprime.tasks;
 
 import optimusprime.parser.Parser;
-import optimusprime.exceptions.InvalidArugmentException;
+import optimusprime.exceptions.InvalidArgumentException;
 import optimusprime.exceptions.InvalidDeleteArgumentException;
 import optimusprime.exceptions.MissingDeadlineArgumentException;
 import optimusprime.exceptions.MissingEventArgumentException;
@@ -22,11 +22,11 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public String createTask(String taskName, String metadata) throws InvalidArugmentException {
+    public String createTask(String taskName, String metadata) throws InvalidArgumentException {
 
         Task task;
         String name = "";
-        if (!metadata.contains("/")){
+        if (!metadata.contains("/")) {
             name = metadata;
         } else {
             name = metadata.substring(0, metadata.indexOf("/")).trim();
@@ -36,7 +36,7 @@ public class TaskList {
             task = new Todos(name, false);
 
             if(metadata.isEmpty()) {
-                throw new InvalidArugmentException(
+                throw new InvalidArgumentException(
                         "Human... You must do something...\nTell me what you want to do after the todo command...");
             }
 
@@ -63,6 +63,7 @@ public class TaskList {
         } else {
             return "Error in reading task!";
         }
+
         taskList.add(task);
 
         return "Got it. I've added this task:\n"
@@ -70,9 +71,9 @@ public class TaskList {
                 + "Now you have " + taskList.size() +" tasks in the list";
     }
 
-    public Task markComplete(int i){
+    public Task markComplete(int i) {
 
-        if (i < 1 || i > taskList.size() ){
+        if (i < 1 || i > taskList.size() ) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -80,9 +81,9 @@ public class TaskList {
         return task;
     }
 
-    public Task markIncomplete(int i){
+    public Task markIncomplete(int i) {
 
-        if (i < 1 || i > taskList.size() ){
+        if (i < 1 || i > taskList.size() ) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -90,13 +91,13 @@ public class TaskList {
         return task;
     }
 
-    public String getTasks(TaskList S){
+    public String getTasks(TaskList S) {
 
-        if (taskList.isEmpty()){
+        if (taskList.isEmpty()) {
             return "You have nothing on your list!";
         }
         String tasks = "";
-        for (int i = 1; i <= taskList.size() - 1; i ++){
+        for (int i = 1; i <= taskList.size() - 1; i ++) {
             tasks += i + ". " + taskList.get(i - 1).toString() + "\n";
         }
         tasks += (taskList.size()) + ". " + taskList.get(taskList.size() - 1) .toString();
@@ -118,8 +119,8 @@ public class TaskList {
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
 
-    public ArrayList<Task> getList() { return this.taskList; }
-
-
+    public ArrayList<Task> getList() {
+        return this.taskList;
+    }
 }
 

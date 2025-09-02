@@ -46,7 +46,7 @@ public final class DatabaseHandler {
         }
     }
     public DatabaseHandler() {}
-    static String[] possiblePaths = {"testdb.txt", "../testdb.txt", "src/main/java/testdb.txt"};
+    static String[] possiblePaths = {"db.txt", "../db.txt", "src/main/java/db.txt"};
     
     private static String findDatabaseFile() {
         for (String path : possiblePaths) {
@@ -54,14 +54,14 @@ public final class DatabaseHandler {
                 return path;
             }
         }
-        return "testdb.txt"; // Default fallback
+        return "db.txt"; // Default fallback
     }
     
     static String filePath = findDatabaseFile();
 
     public static TaskList readDatabase() {
         TaskList tasks = new TaskList();
-        try{
+        try {
             Scanner scanner = new Scanner(new File(filePath));
             while(scanner.hasNext()) {
                 String row = scanner.nextLine();
@@ -90,9 +90,9 @@ public final class DatabaseHandler {
             }
             scanner.close();
             return tasks;
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-            System.out.println("FILE NOT FOUND LAH");
+            System.out.println("Text File has not been found.");
             return new TaskList();
         }
     }
@@ -101,15 +101,17 @@ public final class DatabaseHandler {
         ArrayList<Task> taskList = tasklist.getList();
         try {
             FileWriter writer = new FileWriter(filePath);
-            for(int i = 0; i < taskList.size(); i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
                 LocalDate[] metaData = Task.getMetadata(task);
 
                 StringBuilder metaDataRepresentation = new StringBuilder();
 
                 if (metaData != null) {
-                    for(int j = 0; j < metaData.length; j ++) {
-                        if (metaData[j] == null) {continue;}
+                    for (int j = 0; j < metaData.length; j ++) {
+                        if (metaData[j] == null) {
+                            continue;
+                        }
                         if (j != metaData.length - 1) {
                             metaDataRepresentation.append(metaData[j]).append(" | ");
                         } else {
@@ -133,8 +135,3 @@ public final class DatabaseHandler {
         }
     }
 }
-
-/*
-row| TaskType | isComplete | Description | Optional[MetaInfo] | Optional[MetaInfo]
-1 | event | true | run 5km |
- */
