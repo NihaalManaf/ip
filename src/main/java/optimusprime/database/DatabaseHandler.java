@@ -59,6 +59,15 @@ public final class DatabaseHandler {
     
     static String filePath = findDatabaseFile();
 
+    /**
+     *
+     * Reads your text file, which acts as a long form storage to maintain your data between user sessions.
+     * There must be a file to read. Else, a FileNotFoundException will be thrown.
+     * This method is not generic. It returns an instantiated object of TaskList.
+     * FilePath has been already set and not editable.
+     *
+     * @return It returns an instantiated object of TaskList with all the data from the database
+     **/
     public static TaskList readDatabase() {
         TaskList tasks = new TaskList();
         try{
@@ -96,6 +105,15 @@ public final class DatabaseHandler {
             return new TaskList();
         }
     }
+
+    /**
+     * Takes in an object of TaskList and writes the data
+     * to a file in a preset txt file. The data written follows
+     * a schema, which allows the readDatabase method to read the data
+     * and return a newly instantiated TaskList object.
+     *
+     * @param tasklist is an object of TaskList
+     */
 
     public static void writeDatabase(TaskList tasklist) {
         ArrayList<Task> taskList = tasklist.getList();
