@@ -1,3 +1,5 @@
+package optimusprime.gui;
+
 import javafx.application.Application;
 
 /**

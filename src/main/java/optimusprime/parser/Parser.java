@@ -47,7 +47,7 @@ public final class Parser {
         LocalDate[] parsedDates = new LocalDate[2];
         try {
             int i = 0;
-            for (String date: dates) {
+            for (String date : dates) {
                 parsedDates[i] = LocalDate.parse(date.trim());
                 i++;
             }

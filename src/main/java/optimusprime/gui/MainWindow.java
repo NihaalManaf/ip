@@ -1,3 +1,5 @@
+package optimusprime.gui;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.fxml.FXML;
-
+import optimusprime.OptimusPrime;
 
 public class MainWindow extends Application {
 
@@ -23,22 +25,13 @@ public class MainWindow extends Application {
     private Button sendButton;
     @FXML
     private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private Duke duke = new Duke();
+    private OptimusPrime optimusPrime = new OptimusPrime();
+    private Image userImage;
+    private Image dukeImage;
 
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    /** Injects the Duke instance */
-    public void setDuke(Duke d) {
-        duke = d;
+j    /** Injects the Duke instance */
+    public void setDuke(OptimusPrime optimusPrime) {
+        this.optimusPrime = optimusPrime;
     }
 
     /**
