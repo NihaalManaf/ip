@@ -130,19 +130,29 @@ public class TaskList {
      */
 
     public String findTasks(String keyword) {
+
+        if (taskList.isEmpty()) {
+            return "There are no matches with your keyword!";
+        }
+
         TaskList newList = new TaskList();
         ArrayList<Task> currentList = getList();
+        boolean foundKeyword = false;
         for (Task task : currentList) {
             if (Task.getName(task).contains(keyword)) {
                 newList.addToList(task);
+                foundKeyword = true;
             }
         }
-        return getTasks(newList);
+        if (!foundKeyword) {
+            return "There are no matches with your keyword!";
+        } else {
+            return getTasks(newList);
+        }
     }
 
-
-    public ArrayList<Task> getList() { return this.taskList; }
-
+    public ArrayList<Task> getList() {
+        return this.taskList;
+    }
 
 }
-
