@@ -29,7 +29,7 @@ public class MainWindow extends Application {
     private Image userImage;
     private Image dukeImage;
 
-j    /** Injects the Duke instance */
+    /** Injects the Duke instance */
     public void setDuke(OptimusPrime optimusPrime) {
         this.optimusPrime = optimusPrime;
     }
@@ -41,20 +41,22 @@ j    /** Injects the Duke instance */
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = duke.getResponse(userText);
+        String dukeText = optimusPrime.getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, dukeImage)
-        );
+                DialogBox.getDukeDialog(dukeText, dukeImage));
         userInput.clear();
-
     }
-
-
-
 
     @Override
     public void start(Stage stage) {
+        try {
+            userImage = new Image(this.getClass().getResourceAsStream("/optimusprime/gui/resources/images/DaUser.png"));
+            dukeImage = new Image(this.getClass().getResourceAsStream("/optimusprime/gui/resources/images/DaDuke.png"));
+        } catch (Exception e) {
+            System.err.println("Failed to load images: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
