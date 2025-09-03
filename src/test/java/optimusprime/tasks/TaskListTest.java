@@ -1,6 +1,6 @@
 package optimusprime.tasks;
 
-import optimusprime.exceptions.InvalidArugmentException;
+import optimusprime.exceptions.InvalidArgumentException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class TaskListTest {
 
     @Test
-    public void createTaskTest() throws InvalidArugmentException {
+    public void createTaskTest() throws InvalidArgumentException {
         TaskList tasks = new TaskList();
 
         String result1 = """
@@ -37,11 +37,11 @@ public class TaskListTest {
                 "Finish Task /by 2026-01-01"));
         assertEquals(result3.trim(), tasks.createTask("event",
                 "Lock In /from 2026-01-01 /to 2027-01-01"));
-        assertThrows(InvalidArugmentException.class, () -> tasks.createTask("event", "event"));
+        assertThrows(InvalidArgumentException.class, () -> tasks.createTask("event", "event"));
     }
 
     @Test
-    public void deleteTaskTest() throws InvalidArugmentException {
+    public void deleteTaskTest() throws InvalidArgumentException {
         TaskList originalTaskList = new TaskList();
         originalTaskList.createTask("todo", "Buy Pens");
         originalTaskList.createTask("deadline", "Finish Task /by 2026-01-01");

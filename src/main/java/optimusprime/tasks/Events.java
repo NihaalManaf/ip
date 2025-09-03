@@ -22,7 +22,9 @@ public class Events extends Task {
      * Returns the name of the type of class
      * @return a String of the type of task
      */
-    public String getType() {return type;}
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {

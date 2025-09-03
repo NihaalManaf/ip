@@ -6,10 +6,10 @@ import java.util.Objects;
 public class Task {
 
     boolean isComplete = false;
-    private String name;
+    private final String description;
 
     public Task(String name, boolean isComplete) {
-        this.name = name;
+        this.description = name;
         this.isComplete = isComplete;
     }
 
@@ -21,9 +21,13 @@ public class Task {
         isComplete = false;
     }
 
-    public static boolean getStatus(Task t) { return t.isComplete; }
+    public static boolean getStatus(Task t) {
+        return t.isComplete;
+    }
 
-    public static String getName(Task t) { return t.name; }
+    public static String getName(Task t) {
+        return t.description;
+    }
 
     public String getType() {
         return "Default";
@@ -32,15 +36,15 @@ public class Task {
     public static LocalDate[] getMetadata(Task t) {
         if (Objects.equals(t.getType(), "todo")) {
             return null;
-        } else if(Objects.equals(t.getType(), "deadline")) {
+        } else if (Objects.equals(t.getType(), "deadline")) {
             Deadlines task = (Deadlines) t;
             return task.deadline;
-        } else if(Objects.equals(t.getType(), "event")) {
+        } else if (Objects.equals(t.getType(), "event")) {
             Events task = (Events) t;
             LocalDate startDate = task.fromDate;
             LocalDate endDate = task.toDate;
             return new LocalDate[] {startDate, endDate};
-        }else {
+        } else {
             return null;
         }
     }
@@ -59,13 +63,12 @@ public class Task {
         return task;
     }
     @Override
-    public String toString(){
+    public String toString() {
         String box = "[ ]";
         if (isComplete) {
             box = "[X]";
         }
-
-        return box + " " + name;
+        return box + " " + description;
     }
 
 }

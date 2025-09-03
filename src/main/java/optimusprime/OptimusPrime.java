@@ -1,7 +1,7 @@
 package optimusprime;
 
 import optimusprime.database.DatabaseHandler;
-import optimusprime.exceptions.InvalidArugmentException;
+import optimusprime.exceptions.InvalidArgumentException;
 import optimusprime.tasks.Task;
 import optimusprime.tasks.TaskList;
 import optimusprime.ui.ui;
@@ -88,7 +88,7 @@ public class OptimusPrime {
                     try {
                         String response = tasks.createTask(taskName, metaData);
                         ui.printWithLine(response);
-                    } catch (InvalidArugmentException e) {
+                    } catch (InvalidArgumentException e){
                         ui.printWithLine(e.getMessage());
                     }
                     try {
@@ -102,7 +102,7 @@ public class OptimusPrime {
                         int toDelete = Integer.parseInt(input.split(" ")[1]);
                         String response = tasks.deleteTask(toDelete);
                         ui.printWithLine(response);
-                    } catch (InvalidArugmentException e) {
+                    } catch (InvalidArgumentException e) {
                         ui.printWithLine(e.getMessage());
                     }
                     DatabaseHandler.writeDatabase(tasks);
