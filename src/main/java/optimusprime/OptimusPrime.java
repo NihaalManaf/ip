@@ -2,6 +2,7 @@ package optimusprime;
 
 import optimusprime.database.DatabaseHandler;
 import optimusprime.exceptions.InvalidArugmentException;
+import optimusprime.parser.Parser;
 import optimusprime.tasks.Task;
 import optimusprime.tasks.TaskList;
 import optimusprime.ui.ui;
@@ -19,6 +20,7 @@ public class OptimusPrime {
             LIST,
             TASK,
             DELETE,
+            FIND,
             UNKNOWN;
 
 
@@ -35,6 +37,7 @@ public class OptimusPrime {
                     case "deadline" -> TASK;
                     case "event" -> TASK;
                     case "delete" -> DELETE;
+                    case "find" -> FIND;
                     default -> UNKNOWN;
                 };
             }
@@ -97,6 +100,16 @@ public class OptimusPrime {
                         ui.printWithLine(e.getMessage());
                     }
                     DatabaseHandler.writeDatabase(tasks);
+                }
+                case FIND -> {
+                    try {
+                        String parsedInput = Parser.parseKeyword(input);
+                        String response = tasks.findTasks(parsedInput);
+                        ui.printWithLine(response);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Please enter an argument after 'find'");
+                    }
                 }
                 case UNKNOWN -> {
                     ui.printWithLine("Human... Please enter a valid command...");
