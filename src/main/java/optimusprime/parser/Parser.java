@@ -8,10 +8,12 @@ public final class Parser {
     }
 
     /**
-     * Returns an array of LocalDate objects which is parsed from the metadata specifically for deadline tasks.
+     * Returns an array of LocalDate objects which is parsed from the metadata
+     * specifically for deadline tasks.
      * metadata should not be empty
      *
-     * @param metadata a String that includes the description and the deadline proceeded by the '/by' command
+     * @param metadata a String that includes the description and the deadline
+     *                 proceeded by the '/by' command
      * @return An array of LocalDate objects of length 1 that contains the deadline
      */
     public static LocalDate[] deadlineDateParser(String metadata) {
@@ -25,12 +27,15 @@ public final class Parser {
     }
 
     /**
-     * Returns an array of LocalDate objects which is parsed from the metadata specifically for event tasks.
+     * Returns an array of LocalDate objects which is parsed from the metadata
+     * specifically for event tasks.
      * metadata should not be empty
      *
-     * @param metadata a String that includes the description and the start date proceeded by the '/from' command and
+     * @param metadata a String that includes the description and the start date
+     *                 proceeded by the '/from' command and
      *                 the end date proceeded by the /to command
-     * @return An array of LocalDate objects of length 2 that contains the start date (arr[0]) and end date (arr[1])
+     * @return An array of LocalDate objects of length 2 that contains the start
+     *         date (arr[0]) and end date (arr[1])
      */
     public static LocalDate[] eventDateParser(String metadata) {
 
@@ -69,7 +74,8 @@ public final class Parser {
     }
 
     /**
-     * Returns a human-readable String from a LocalDate object for greater readability
+     * Returns a human-readable String from a LocalDate object for greater
+     * readability
      *
      * @param localDate - a LocalDate object
      * @return A prettified string of localdate
