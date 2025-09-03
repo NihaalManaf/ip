@@ -17,11 +17,23 @@ public class TaskList {
 
     public TaskList() {}
 
-
+    /**
+     * Adds object Task to TaskList
+     * @param task Object Task
+     */
     public void addToList(Task task){
         taskList.add(task);
     }
 
+    /**
+     * Creates a task based on the type of task, and the metadata. Adds the task directly to
+     * task list after task instantiation
+     *
+     * @param taskName A String of either 'todo', 'event', 'deadline'
+     * @param metadata A String consisting of decription of task along with dates and commands that preceed them
+     * @return A String that is to be displayed to the user after task has been added
+     * @throws InvalidArugmentException
+     */
     public String createTask(String taskName, String metadata) throws InvalidArugmentException {
 
         Task task;
@@ -70,6 +82,12 @@ public class TaskList {
                 + "Now you have " + taskList.size() +" tasks in the list";
     }
 
+    /**
+     * Marks a task as complete
+     *
+     * @param i Index of task on list that you wish to mark complete
+     * @return Returns the same Task object but modified with complete status
+     */
     public Task markComplete(int i){
 
         if (i < 1 || i > taskList.size() ){
@@ -80,6 +98,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Marks a task as incomplete
+     *
+     * @param i Index of task on list that you wish to mark incomplete
+     * @return Returns the original Task object but modified with incomplete status
+     */
     public Task markIncomplete(int i){
 
         if (i < 1 || i > taskList.size() ){
@@ -90,6 +114,11 @@ public class TaskList {
         return task;
     }
 
+    /**
+     *  Returns a list of tasks in the task list as a List
+     * @param S Instantiated task list
+     * @return String of all tasks in iterated fashion
+     */
     public String getTasks(TaskList S){
 
         if (taskList.isEmpty()){
@@ -103,6 +132,14 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Deletes a task based on the task's index number as seen in the list printed by TaskList.getTasks
+     *
+     *
+     * @param i index number of task
+     * @return Delete message that includes deleted task
+     * @throws InvalidDeleteArgumentException
+     */
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
         i --;
         if (i < 0 || i > taskList.size() - 1) {
@@ -118,6 +155,10 @@ public class TaskList {
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
 
+    /**
+     * Gets all tasks in this list as ArrayList<Task>
+     * @return ArrayList<Task> of tasks
+     */
     public ArrayList<Task> getList() { return this.taskList; }
 
 

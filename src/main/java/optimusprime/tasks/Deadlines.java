@@ -14,9 +14,13 @@ public class Deadlines extends Task {
         this.deadline = date;
     }
 
+    /**
+     * Returns the name of the type of class
+     * @return a String of the type of task
+     */
     public String getType() {return type;}
 
     public String toString() {
-        return mark + super.toString() + " (by: " + Parser.prettyDate(deadline[0]) + ")";
+        return mark + super.toString() + " (by: " + Parser.prettifyDate(deadline[0]) + ")";
     }
 }

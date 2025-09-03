@@ -18,12 +18,16 @@ public class Events extends Task {
         this.toDate = dates[1];
     }
 
+    /**
+     * Returns the name of the type of class
+     * @return a String of the type of task
+     */
     public String getType() {return type;}
 
     @Override
     public String toString() {
         return mark + super.toString()
-                + " (from: " + Parser.prettyDate(fromDate)
-                + " to: " + Parser.prettyDate(toDate) + ")";
+                + " (from: " + Parser.prettifyDate(fromDate)
+                + " to: " + Parser.prettifyDate(toDate) + ")";
     }
 }
