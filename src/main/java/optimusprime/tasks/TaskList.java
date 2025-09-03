@@ -15,18 +15,22 @@ public class TaskList {
     Task[] list = new Task[100];
     ArrayList<Task> taskList = new ArrayList<>();
 
-    public TaskList() {}
+    public TaskList() {
+    }
 
-
-    public void addToList(Task task){
+    public void addToList(Task task) {
         taskList.add(task);
+    }
+
+    public Boolean isEmpty() {
+        return taskList.isEmpty();
     }
 
     public String createTask(String taskName, String metadata) throws InvalidArugmentException {
 
         Task task;
         String name = "";
-        if (!metadata.contains("/")){
+        if (!metadata.contains("/")) {
             name = metadata;
         } else {
             name = metadata.substring(0, metadata.indexOf("/")).trim();
@@ -35,20 +39,20 @@ public class TaskList {
         if (Objects.equals(taskName, "todo")) {
             task = new Todos(name, false);
 
-            if(metadata.isEmpty()) {
+            if (metadata.isEmpty()) {
                 throw new InvalidArugmentException(
                         "Human... You must do something...\nTell me what you want to do after the todo command...");
             }
 
-        } else if(Objects.equals(taskName, "deadline")) {
-            if (! metadata.contains("/by")) {
+        } else if (Objects.equals(taskName, "deadline")) {
+            if (!metadata.contains("/by")) {
                 throw new MissingDeadlineArgumentException(
-                        "The autobots normally enter their deadline proceeding a '/by' command..." );
+                        "The autobots normally enter their deadline proceeding a '/by' command...");
             }
             LocalDate[] localDate = Parser.deadlineDateParser(metadata);
             task = new Deadlines(name, localDate, false);
 
-        } else if(Objects.equals(taskName, "event")) {
+        } else if (Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
 
@@ -56,7 +60,7 @@ public class TaskList {
 
             if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
                 throw new MissingEventArgumentException(
-                        "The autobots normally enter their event proceeding a '/from' and '/to' command..." );
+                        "The autobots normally enter their event proceeding a '/from' and '/to' command...");
             }
 
             task = new Events(name, localDate, false);
@@ -67,12 +71,12 @@ public class TaskList {
 
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
-                + "Now you have " + taskList.size() +" tasks in the list";
+                + "Now you have " + taskList.size() + " tasks in the list";
     }
 
-    public Task markComplete(int i){
+    public Task markComplete(int i) {
 
-        if (i < 1 || i > taskList.size() ){
+        if (i < 1 || i > taskList.size()) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -80,9 +84,9 @@ public class TaskList {
         return task;
     }
 
-    public Task markIncomplete(int i){
+    public Task markIncomplete(int i) {
 
-        if (i < 1 || i > taskList.size() ){
+        if (i < 1 || i > taskList.size()) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -112,8 +116,7 @@ public class TaskList {
 
         Task task = taskList.get(i);
         taskList.remove(task);
-        return
-                "Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
