@@ -44,7 +44,17 @@ public final class Parser {
         return parsedDates;
     }
 
-    public static String prettyDate(LocalDate localDate){
+    /**
+     * Parses the input by the user and parses out the keyword in the command
+     *
+     * @param input User input as String
+     * @return keyword for findTask in TaskList
+     */
+    public static String parseKeyword(String input) {
+        return input.split(" ")[1];
+    }
+
+    public static String prettyDate(LocalDate localDate) {
         return String.format("%d %s %d",
                 localDate.getDayOfMonth(), localDate.getMonth(), localDate.getYear());
     }
