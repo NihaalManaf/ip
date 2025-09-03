@@ -3,26 +3,23 @@ package optimusprime.ui;
 public final class ui {
     public ui() {}
 
-    public static void drawLine(){
-        String line = "-----------------------------------------------";
-        System.out.println(line);
+    public static String drawLine(){
+        return "-----------------------------------------------";
+
     }
 
-    public static void printWithLine(String text){
-        drawLine();
-        System.out.println(text);
-        drawLine();
+    public static String printWithLine(String text){
+        return drawLine() + "\n" + text + "\n" + drawLine();
     }
 
-    public static void sayHi() {
-        drawLine();
+    public static String sayHi() {
         String greetText = "Hello! I'm Optimus Prime, Leader of the Autobots\nWhat can I do for you?";
-        System.out.println(greetText); drawLine();
+        return drawLine() + "\n" + greetText + "\n" + drawLine();
     }
 
-    public static void sayBye() {
+    public static String sayBye() {
         String byeText = "Autobots, Roll Out!";
-        System.out.println(byeText); drawLine();
+        return drawLine() + "\n" + byeText + "\n" + drawLine();
     }
 
 }
