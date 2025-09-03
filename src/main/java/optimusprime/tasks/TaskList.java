@@ -94,21 +94,22 @@ public class TaskList {
         return task;
     }
 
-    public String getTasks(TaskList S){
+    public String getTasks(TaskList tl) {
 
-        if (taskList.isEmpty()){
+        if (tl.isEmpty()) {
             return "You have nothing on your list!";
         }
+        ArrayList<Task> tlArrayList = tl.getList();
         String tasks = "";
-        for (int i = 1; i <= taskList.size() - 1; i ++){
-            tasks += i + ". " + taskList.get(i - 1).toString() + "\n";
+        for (int i = 1; i <= tlArrayList.size() - 1; i++) {
+            tasks += i + ". " + tlArrayList.get(i - 1).toString() + "\n";
         }
-        tasks += (taskList.size()) + ". " + taskList.get(taskList.size() - 1) .toString();
+        tasks += (tlArrayList.size()) + ". " + tlArrayList.get(tlArrayList.size() - 1).toString();
         return tasks;
     }
 
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
-        i --;
+        i--;
         if (i < 0 || i > taskList.size() - 1) {
             throw new InvalidDeleteArgumentException(
                     "Human... You simply cannot delete nothing...\nEnter a valid task number...");
