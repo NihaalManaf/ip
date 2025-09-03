@@ -26,6 +26,14 @@ public class TaskList {
     }
 
     /**
+     * Returns if the Tasklist object is empty
+     * @return boolean for if the TaskList is empty
+     */
+    public Boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    /**
      * Creates a task based on the type of task, and the metadata. Adds the task directly to
      * task list after task instantiation
      *
@@ -47,20 +55,20 @@ public class TaskList {
         if (Objects.equals(taskName, "todo")) {
             task = new Todos(name, false);
 
-            if(metadata.isEmpty()) {
+            if (metadata.isEmpty()) {
                 throw new InvalidArgumentException(
                         "Human... You must do something...\nTell me what you want to do after the todo command...");
             }
 
-        } else if(Objects.equals(taskName, "deadline")) {
-            if (! metadata.contains("/by")) {
+        } else if (Objects.equals(taskName, "deadline")) {
+            if (!metadata.contains("/by")) {
                 throw new MissingDeadlineArgumentException(
-                        "The autobots normally enter their deadline proceeding a '/by' command..." );
+                        "The autobots normally enter their deadline proceeding a '/by' command...");
             }
             LocalDate[] localDate = Parser.deadlineDateParser(metadata);
             task = new Deadlines(name, localDate, false);
 
-        } else if(Objects.equals(taskName, "event")) {
+        } else if (Objects.equals(taskName, "event")) {
             String firstSubString = "/from";
             String secondSubString = "/to";
 
@@ -68,7 +76,7 @@ public class TaskList {
 
             if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
                 throw new MissingEventArgumentException(
-                        "The autobots normally enter their event proceeding a '/from' and '/to' command..." );
+                        "The autobots normally enter their event proceeding a '/from' and '/to' command...");
             }
 
             task = new Events(name, localDate, false);
@@ -80,7 +88,7 @@ public class TaskList {
 
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
-                + "Now you have " + taskList.size() +" tasks in the list";
+                + "Now you have " + taskList.size() + " tasks in the list";
     }
 
     /**
@@ -91,7 +99,7 @@ public class TaskList {
      */
     public Task markComplete(int i) {
 
-        if (i < 1 || i > taskList.size() ) {
+        if (i < 1 || i > taskList.size()) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -105,9 +113,9 @@ public class TaskList {
      * @param i Index of task on list that you wish to mark incomplete
      * @return Returns the original Task object but modified with incomplete status
      */
-    public Task markIncomplete(int i){
+    public Task markIncomplete(int i) {
 
-        if (i < 1 || i > taskList.size() ) {
+        if (i < 1 || i > taskList.size()) {
             return null;
         }
         Task task = taskList.get(i - 1);
@@ -120,16 +128,17 @@ public class TaskList {
      * @param S Instantiated task list
      * @return String of all tasks in iterated fashion
      */
-    public String getTasks(TaskList S) {
+    public String getTasks(TaskList tl) {
 
-        if (taskList.isEmpty()) {
+        if (tl.isEmpty()) {
             return "You have nothing on your list!";
         }
+        ArrayList<Task> tlArrayList = tl.getList();
         String tasks = "";
-        for (int i = 1; i <= taskList.size() - 1; i ++) {
-            tasks += i + ". " + taskList.get(i - 1).toString() + "\n";
+        for (int i = 1; i <= tlArrayList.size() - 1; i++) {
+            tasks += i + ". " + tlArrayList.get(i - 1).toString() + "\n";
         }
-        tasks += (taskList.size()) + ". " + taskList.get(taskList.size() - 1) .toString();
+        tasks += (tlArrayList.size()) + ". " + tlArrayList.get(tlArrayList.size() - 1).toString();
         return tasks;
     }
 
@@ -142,7 +151,7 @@ public class TaskList {
      * @throws InvalidDeleteArgumentException
      */
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
-        i --;
+        i--;
         if (i < 0 || i > taskList.size() - 1) {
             throw new InvalidDeleteArgumentException(
                     "Human... You simply cannot delete nothing...\nEnter a valid task number...");
@@ -150,10 +159,38 @@ public class TaskList {
 
         Task task = taskList.get(i);
         taskList.remove(task);
-        return
-                "Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";
+    }
+
+    /**
+     * Prints a list of tasks that match a keyword input by user
+     *
+     * @param keyword Search String
+     * @return String of tasks to output to user
+     */
+
+    public String findTasks(String keyword) {
+
+        if (taskList.isEmpty()) {
+            return "There are no matches with your keyword!";
+        }
+
+        TaskList newList = new TaskList();
+        ArrayList<Task> currentList = getList();
+        boolean foundKeyword = false;
+        for (Task task : currentList) {
+            if (Task.getName(task).contains(keyword)) {
+                newList.addToList(task);
+                foundKeyword = true;
+            }
+        }
+        if (!foundKeyword) {
+            return "There are no matches with your keyword!";
+        } else {
+            return getTasks(newList);
+        }
     }
 
     /**

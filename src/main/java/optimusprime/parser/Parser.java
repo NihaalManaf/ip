@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public final class Parser {
-    public Parser() {}
+    public Parser() {
+    }
 
     /**
      * Returns an array of LocalDate objects which is parsed from the metadata specifically for deadline tasks.
@@ -16,7 +17,7 @@ public final class Parser {
     public static LocalDate[] deadlineDateParser(String metadata) {
         String byDate = metadata.split("/by ")[1];
         try {
-            return new LocalDate[] {LocalDate.parse(byDate)};
+            return new LocalDate[] { LocalDate.parse(byDate) };
         } catch (DateTimeParseException e) {
             System.out.println(e);
             return null;
@@ -44,7 +45,7 @@ public final class Parser {
             };
         }
         LocalDate[] parsedDates = new LocalDate[2];
-        try{
+        try {
             int i = 0;
             for (String date: dates) {
                 parsedDates[i] = LocalDate.parse(date.trim());
@@ -55,6 +56,16 @@ public final class Parser {
             return null;
         }
         return parsedDates;
+    }
+
+    /**
+     * Parses the input by the user and parses out the keyword in the command
+     *
+     * @param input User input as String
+     * @return keyword for findTask in TaskList
+     */
+    public static String parseKeyword(String input) {
+        return input.split(" ")[1];
     }
 
     /**
