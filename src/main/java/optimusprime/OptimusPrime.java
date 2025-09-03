@@ -7,11 +7,14 @@ import optimusprime.tasks.Task;
 import optimusprime.tasks.TaskList;
 import optimusprime.ui.ui;
 
-import java.util.Scanner;
 
 public class OptimusPrime {
 
-    public static void main(String[] args) {
+    public String sayHi() {
+        return "\"Hello! I'm Optimus Prime, Leader of the Autobots\\nWhat can I do for you?";
+    }
+
+    public String getResponse(String input) {
 
         enum CommandType {
             BYE,
@@ -43,87 +46,76 @@ public class OptimusPrime {
             }
         }
 
-
-        Scanner scanner = new Scanner(System.in);
         TaskList tasks;
         try {
             tasks = DatabaseHandler.readDatabase();
         } catch (Exception e){
             tasks = new TaskList();
         }
-        ui.sayHi();
 
-        main: while(true){
-            System.out.println("User:");
-            String input = scanner.nextLine();
-            String inputCommand = input.split(" ")[0];
-            CommandType commandType = CommandType.fromString(inputCommand);
 
-            switch (commandType){
-                case BYE -> {
-                    ui.drawLine();
-                    ui.sayBye();
-                    DatabaseHandler.writeDatabase(tasks);
-                    break main;
-                }
-                case UNMARK -> {
-                    char itemToAdd = input.charAt(input.length() - 1);
-                    int item = itemToAdd - '0';
-                    Task task = tasks.markIncomplete(item);
-                    ui.printWithLine("OK, I've marked this task as not done yet:\n" + task);
-                    DatabaseHandler.writeDatabase(tasks);
-                }
-                case MARK -> {
-                    char itemToAdd = input.charAt(input.length() - 1);
-                    int item = itemToAdd - '0';
-                    Task task = tasks.markComplete(item);
-                    ui.printWithLine("Nice! I've marked this task as done:\n" + task);
-                    DatabaseHandler.writeDatabase(tasks);
-                }
-                case LIST -> {
-                    String list = tasks.getTasks(tasks);
-                    ui.printWithLine(list);
-                }
-                case TASK -> {
-                    String taskName = input.split(" ")[0];
-                    String metaData = input.replaceAll(taskName, "").trim();
+        System.out.println("User:");
+        String inputCommand = input.split(" ")[0];
+        CommandType commandType = CommandType.fromString(inputCommand);
 
-                    try {
-                        String response = tasks.createTask(taskName, metaData);
-                        ui.printWithLine(response);
-                    } catch (InvalidArgumentException e){
-                        ui.printWithLine(e.getMessage());
-                    }
-                    try {
-                        DatabaseHandler.writeDatabase(tasks);
-                    } catch (Exception e) {
-                        System.out.println("Uh oh...The decepticons are coming...\nLet's add your task later");
-                    }
-                }
-                case DELETE -> {
-                    try {
-                        int toDelete = Integer.parseInt(input.split(" ")[1]);
-                        String response = tasks.deleteTask(toDelete);
-                        ui.printWithLine(response);
-                    } catch (InvalidArgumentException e) {
-                        ui.printWithLine(e.getMessage());
-                    }
+        switch (commandType){
+            case BYE -> {
+                return "Autobots, Roll Out!";
+            }
+            case UNMARK -> {
+                char itemToAdd = input.charAt(input.length() - 1);
+                int item = itemToAdd - '0';
+                Task task = tasks.markIncomplete(item);
+                DatabaseHandler.writeDatabase(tasks);
+                return "OK, I've marked this task as not done yet:\n" + task;
+            }
+            case MARK -> {
+                char itemToAdd = input.charAt(input.length() - 1);
+                int item = itemToAdd - '0';
+                Task task = tasks.markComplete(item);
+                DatabaseHandler.writeDatabase(tasks);
+                return "Nice! I've marked this task as done:\n" + task;
+            }
+            case LIST -> {
+                return tasks.getTasks(tasks);
+            }
+            case TASK -> {
+                String taskName = input.split(" ")[0];
+                String metaData = input.replaceAll(taskName, "").trim();
+
+                try {
+                    String response = tasks.createTask(taskName, metaData);
                     DatabaseHandler.writeDatabase(tasks);
-                }
-                case FIND -> {
-                    try {
-                        String parsedInput = Parser.parseKeyword(input);
-                        String response = tasks.findTasks(parsedInput);
-                        ui.printWithLine(response);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("Please enter an argument after 'find'");
-                    }
-                }
-                case UNKNOWN -> {
-                    ui.printWithLine("Human... Please enter a valid command...");
+                    return response;
+                } catch (InvalidArgumentException e){
+                    return e.getMessage();
+                } catch (Exception e) {
+                    System.out.println("Uh oh...The Decepticons are coming...\nLet's add your task later");
                 }
             }
+            case DELETE -> {
+                try {
+                    int toDelete = Integer.parseInt(input.split(" ")[1]);
+                    String response = tasks.deleteTask(toDelete);
+                    DatabaseHandler.writeDatabase(tasks);
+                    return response;
+                } catch (InvalidArgumentException e) {
+                    return e.getMessage();
+                }
+            }
+            case FIND -> {
+                try {
+                    String parsedInput = Parser.parseKeyword(input);
+                    return tasks.findTasks(parsedInput);
+                } catch (Exception e) {
+                    return "Please enter an argument after 'find'";
+                }
+            }
+            case UNKNOWN -> {
+                return "Human... Please enter a valid command...";
+            }
         }
+
+        return "";
     }
 }
