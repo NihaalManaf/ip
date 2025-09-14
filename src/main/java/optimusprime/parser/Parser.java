@@ -3,6 +3,9 @@ package optimusprime.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and converts it into appropriate task objects.
+ */
 public final class Parser {
     public Parser() {
     }

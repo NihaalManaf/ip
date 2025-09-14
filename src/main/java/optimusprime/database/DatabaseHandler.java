@@ -1,53 +1,31 @@
 package optimusprime.database;
 
-import optimusprime.tasks.TaskList;
-import optimusprime.tasks.Task;
-
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.util.Scanner;
-import java.io.File;
 
+import optimusprime.tasks.Task;
+import optimusprime.tasks.TaskList;
+
+/**
+ * Handles database operations for storing and retrieving tasks.
+ */
 public final class DatabaseHandler {
 
-    protected final class Row {
-        // row| TaskType | isComplete | Description | Optional[MetaInfo] | Optional[MetaInfo]
-        private final String taskType;
-        private final boolean isComplete;
-        private final String Description;
-        private final String[] metaData;
+    private static String[] possiblePaths = { "db.txt", "../db.txt", "src/main/java/db.txt" };
+    private static String filePath;
 
-        public Row(String taskType, boolean isComplete, String Description, String[] metaData) {
-            this.taskType = taskType;
-            this.isComplete = isComplete;
-            this.Description = Description;
-            this.metaData = metaData;
-        }
-
-        public String toString(){
-
-            StringBuilder metaDataRepresentation = new StringBuilder();
-            if (metaData != null) {
-                for (String metaDatum : metaData) {
-                    metaDataRepresentation.append(metaDatum).append(" | ");
-                }
-            }
-
-            String line = String.format(
-                    "%s | %b | %s | %s $\n",
-                    taskType,
-                    isComplete,
-                    Description,
-                    metaDataRepresentation);
-            return line;
-        }
+    static {
+        filePath = findDatabaseFile();
     }
-    public DatabaseHandler() {}
-    static String[] possiblePaths = {"db.txt", "../db.txt", "src/main/java/db.txt"};
-    
+
+    public DatabaseHandler() {
+    }
+
     private static String findDatabaseFile() {
         for (String path : possiblePaths) {
             if (new File(path).exists()) {
@@ -56,30 +34,29 @@ public final class DatabaseHandler {
         }
         return "db.txt"; // Default fallback
     }
-    
-    static String filePath = findDatabaseFile();
 
     /**
-     *
-     * Reads your text file, which acts as a long form storage to maintain your data between user sessions.
+     * Reads your text file, which acts as a long form storage to maintain your data
+     * between user sessions.
      * There must be a file to read. Else, a FileNotFoundException will be thrown.
      * This method is not generic. It returns an instantiated object of TaskList.
      * FilePath has been already set and not editable.
      *
-     * @return It returns an instantiated object of TaskList with all the data from the database
+     * @return It returns an instantiated object of TaskList with all the data from
+     *         the database
      **/
     public static TaskList readDatabase() {
         TaskList tasks = new TaskList();
         try {
             Scanner scanner = new Scanner(new File(filePath));
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 String row = scanner.nextLine();
                 String[] rowInputs = row.split("\\s*\\|\\s*");
 
                 if (rowInputs.length < 4) {
                     continue;
                 }
-                
+
                 String taskType = rowInputs[1].trim();
                 boolean isComplete = Boolean.parseBoolean(rowInputs[2].trim());
                 String description = rowInputs[3].trim();
@@ -91,7 +68,7 @@ public final class DatabaseHandler {
                 if (rowInputs.length > 5 && !rowInputs[5].trim().isEmpty()) {
                     metadata[1] = LocalDate.parse(rowInputs[5].trim());
                 }
-                
+
                 Task task = Task.createTask(taskType, isComplete, description, metadata);
                 if (task != null) {
                     tasks.addToList(task);
@@ -126,7 +103,7 @@ public final class DatabaseHandler {
                 StringBuilder metaDataRepresentation = new StringBuilder();
 
                 if (metaData != null) {
-                    for (int j = 0; j < metaData.length; j ++) {
+                    for (int j = 0; j < metaData.length; j++) {
                         if (metaData[j] == null) {
                             continue;
                         }

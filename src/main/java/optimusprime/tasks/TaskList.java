@@ -1,32 +1,38 @@
 package optimusprime.tasks;
 
-import optimusprime.parser.Parser;
-import optimusprime.exceptions.InvalidArgumentException;
-import optimusprime.exceptions.InvalidDeleteArgumentException;
-import optimusprime.exceptions.MissingDeadlineArgumentException;
-import optimusprime.exceptions.MissingEventArgumentException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import optimusprime.exceptions.InvalidArgumentException;
+import optimusprime.exceptions.InvalidDeleteArgumentException;
+import optimusprime.exceptions.MissingDeadlineArgumentException;
+import optimusprime.exceptions.MissingEventArgumentException;
+import optimusprime.parser.Parser;
+
+/**
+ * Manages a collection of tasks and provides operations to manipulate them.
+ */
 public class TaskList {
 
-    Task[] list = new Task[100];
-    ArrayList<Task> taskList = new ArrayList<>();
+    private Task[] list = new Task[100];
+    private ArrayList<Task> taskList = new ArrayList<>();
 
-    public TaskList() {}
+    public TaskList() {
+    }
 
     /**
      * Adds object Task to TaskList
+     *
      * @param task Object Task
      */
-    public void addToList(Task task){
+    public void addToList(Task task) {
         taskList.add(task);
     }
 
     /**
      * Returns if the Tasklist object is empty
+     *
      * @return boolean for if the TaskList is empty
      */
     public Boolean isEmpty() {
@@ -34,12 +40,15 @@ public class TaskList {
     }
 
     /**
-     * Creates a task based on the type of task, and the metadata. Adds the task directly to
+     * Creates a task based on the type of task, and the metadata. Adds the task
+     * directly to
      * task list after task instantiation
      *
      * @param taskName A String of either 'todo', 'event', 'deadline'
-     * @param metadata A String consisting of decription of task along with dates and commands that preceed them
-     * @return A String that is to be displayed to the user after task has been added
+     * @param metadata A String consisting of decription of task along with dates
+     *                 and commands that preceed them
+     * @return A String that is to be displayed to the user after task has been
+     *         added
      * @throws InvalidArgumentException
      */
     public String createTask(String taskName, String metadata) throws InvalidArgumentException {
@@ -124,8 +133,9 @@ public class TaskList {
     }
 
     /**
-     *  Returns a list of tasks in the task list as a List
-     * @param S Instantiated task list
+     * Returns a list of tasks in the task list as a List
+     *
+     * @param tl Instantiated task list
      * @return String of all tasks in iterated fashion
      */
     public String getTasks(TaskList tl) {
@@ -143,7 +153,8 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task based on the task's index number as seen in the list printed by TaskList.getTasks
+     * Deletes a task based on the task's index number as seen in the list printed
+     * by TaskList.getTasks
      *
      *
      * @param i index number of task
@@ -194,11 +205,11 @@ public class TaskList {
     }
 
     /**
-     * Gets all tasks in this list as ArrayList<Task>
-     * @return ArrayList<Task> of tasks
+     * Gets all tasks in this list as ArrayList.
+     *
+     * @return ArrayList of tasks
      */
     public ArrayList<Task> getList() {
         return this.taskList;
     }
 }
-

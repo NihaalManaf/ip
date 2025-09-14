@@ -5,9 +5,10 @@ import optimusprime.exceptions.InvalidArgumentException;
 import optimusprime.parser.Parser;
 import optimusprime.tasks.Task;
 import optimusprime.tasks.TaskList;
-import optimusprime.ui.ui;
 
-
+/**
+ * Main application class for OptimusPrime task management system.
+ */
 public class OptimusPrime {
 
     public String sayHi() {
@@ -25,7 +26,6 @@ public class OptimusPrime {
             DELETE,
             FIND,
             UNKNOWN;
-
 
             public static CommandType fromString(String input) {
                 if (input == null) {
@@ -49,16 +49,15 @@ public class OptimusPrime {
         TaskList tasks;
         try {
             tasks = DatabaseHandler.readDatabase();
-        } catch (Exception e){
+        } catch (Exception e) {
             tasks = new TaskList();
         }
-
 
         System.out.println("User:");
         String inputCommand = input.split(" ")[0];
         CommandType commandType = CommandType.fromString(inputCommand);
 
-        switch (commandType){
+        switch (commandType) {
             case BYE -> {
                 return "Autobots, Roll Out!";
             }
@@ -87,7 +86,7 @@ public class OptimusPrime {
                     String response = tasks.createTask(taskName, metaData);
                     DatabaseHandler.writeDatabase(tasks);
                     return response;
-                } catch (InvalidArgumentException e){
+                } catch (InvalidArgumentException e) {
                     return e.getMessage();
                 } catch (Exception e) {
                     System.out.println("Uh oh...The Decepticons are coming...\nLet's add your task later");
@@ -112,6 +111,9 @@ public class OptimusPrime {
                 }
             }
             case UNKNOWN -> {
+                return "Human... Please enter a valid command...";
+            }
+            default -> {
                 return "Human... Please enter a valid command...";
             }
         }

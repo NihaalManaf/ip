@@ -1,6 +1,9 @@
 package optimusprime.exceptions;
 
-public class InvalidDeleteArgumentException extends InvalidArgumentException{
+/**
+ * Exception thrown when invalid delete arguments are provided.
+ */
+public class InvalidDeleteArgumentException extends InvalidArgumentException {
     public InvalidDeleteArgumentException(String name) {
         super(name);
     }

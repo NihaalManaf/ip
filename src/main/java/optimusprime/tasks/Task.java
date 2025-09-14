@@ -3,17 +3,26 @@ package optimusprime.tasks;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents a task with a description and completion status.
+ */
 public class Task {
 
-    boolean isComplete = false;
+    private boolean isComplete = false;
     private final String description;
 
+    /**
+     * Constructs a new Task with the given name and completion status.
+     *
+     * @param name       The description of the task
+     * @param isComplete Whether the task is completed
+     */
     public Task(String name, boolean isComplete) {
         this.description = name;
         this.isComplete = isComplete;
     }
 
-    public void markComplete(){
+    public void markComplete() {
         isComplete = true;
     }
 
@@ -38,30 +47,40 @@ public class Task {
             return null;
         } else if (Objects.equals(t.getType(), "deadline")) {
             Deadlines task = (Deadlines) t;
-            return task.deadline;
+            return task.getDeadline();
         } else if (Objects.equals(t.getType(), "event")) {
             Events task = (Events) t;
-            LocalDate startDate = task.fromDate;
-            LocalDate endDate = task.toDate;
-            return new LocalDate[] {startDate, endDate};
+            LocalDate startDate = task.getFromDate();
+            LocalDate endDate = task.getToDate();
+            return new LocalDate[] { startDate, endDate };
         } else {
             return null;
         }
     }
 
-    public static Task createTask(String type, boolean isComplete, String Description, LocalDate[] metadata) {
+    /**
+     * Creates a new task of the specified type.
+     *
+     * @param type        The type of task to create
+     * @param isComplete  Whether the task is completed
+     * @param description The description of the task
+     * @param metadata    Additional metadata for the task
+     * @return A new Task object
+     */
+    public static Task createTask(String type, boolean isComplete, String description, LocalDate[] metadata) {
         Task task;
         if (Objects.equals(type, "todo")) {
-           task = new Todos(Description, isComplete);
-        } else if(Objects.equals(type, "deadline")){
-            task = new Deadlines(Description, metadata, isComplete);
-        } else if(Objects.equals(type, "event")){
-            task = new Events(Description, metadata, isComplete);
+            task = new Todos(description, isComplete);
+        } else if (Objects.equals(type, "deadline")) {
+            task = new Deadlines(description, metadata, isComplete);
+        } else if (Objects.equals(type, "event")) {
+            task = new Events(description, metadata, isComplete);
         } else {
             return null;
         }
         return task;
     }
+
     @Override
     public String toString() {
         String box = "[ ]";
