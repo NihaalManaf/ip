@@ -25,6 +25,7 @@ public class OptimusPrime {
             TASK,
             DELETE,
             FIND,
+            SORT,
             UNKNOWN;
 
             public static CommandType runCommand(String input) {
@@ -41,6 +42,7 @@ public class OptimusPrime {
                     case "event" -> TASK;
                     case "delete" -> DELETE;
                     case "find" -> FIND;
+                    case "sort" -> SORT;
                     default -> UNKNOWN;
                 };
             }
@@ -108,6 +110,14 @@ public class OptimusPrime {
                     return tasks.findTasks(parsedInput);
                 } catch (Exception e) {
                     return "Please enter an argument after 'find'";
+                }
+            }
+            case SORT -> {
+                try {
+                    String parsedInput = Parser.parseKeyword(input);
+                    return tasks.sort(parsedInput);
+                } catch (Exception e) {
+                    return "Please enter ascending or descending after 'sort'";
                 }
             }
             default -> {
