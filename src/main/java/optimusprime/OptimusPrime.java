@@ -27,7 +27,7 @@ public class OptimusPrime {
             FIND,
             UNKNOWN;
 
-            public static CommandType fromString(String input) {
+            public static CommandType runCommand(String input) {
                 if (input == null) {
                     return UNKNOWN;
                 }
@@ -55,7 +55,7 @@ public class OptimusPrime {
 
         System.out.println("User:");
         String inputCommand = input.split(" ")[0];
-        CommandType commandType = CommandType.fromString(inputCommand);
+        CommandType commandType = CommandType.runCommand(inputCommand);
 
         switch (commandType) {
             case BYE -> {
