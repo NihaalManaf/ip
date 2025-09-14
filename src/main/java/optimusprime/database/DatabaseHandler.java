@@ -16,8 +16,8 @@ import optimusprime.tasks.TaskList;
  */
 public final class DatabaseHandler {
 
-    private static String[] possiblePaths = { "db.txt", "../db.txt", "src/main/java/db.txt" };
-    private static String filePath;
+    private static final String[] possiblePaths = { "db.txt", "../db.txt", "src/main/java/db.txt" };
+    private static final String filePath;
 
     static {
         filePath = findDatabaseFile();
