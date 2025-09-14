@@ -114,9 +114,10 @@ public class OptimusPrime {
             }
             case SORT -> {
                 try {
-                    String parsedInput = Parser.parseKeyword(input);
-                    return tasks.sort(parsedInput);
+                    String[] parsedInput = Parser.parseTwoKeywords(input);
+                    return tasks.sortTasks(parsedInput);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     return "Please enter ascending or descending after 'sort'";
                 }
             }

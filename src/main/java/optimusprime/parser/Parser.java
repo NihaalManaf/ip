@@ -67,13 +67,26 @@ public final class Parser {
     }
 
     /**
-     * Parses the input by the user and parses out the keyword in the command
+     * Parses the input by the user and parses out the keyword in the command assuming
+     * the input is structured as 'COMMAND KEYWORD'
      *
      * @param input User input as String
      * @return keyword for findTask in TaskList
      */
     public static String parseKeyword(String input) {
         return input.split(" ")[1];
+    }
+
+    /**
+     * Parses the input by the user and parses out the keyword in the command assuming
+     * the input is structured as 'COMMAND KEYWORD'
+     *
+     * @param input User input as String
+     * @return keyword for findTask in TaskList
+     */
+    public static String[] parseTwoKeywords(String input) {
+        String[] splitValues = input.split(" ");
+        return new String[]{splitValues[1], splitValues[2]};
     }
 
     /**
