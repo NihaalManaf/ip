@@ -110,9 +110,6 @@ public class OptimusPrime {
                     return "Please enter an argument after 'find'";
                 }
             }
-            case UNKNOWN -> {
-                return "Human... Please enter a valid command...";
-            }
             default -> {
                 return "Human... Please enter a valid command...";
             }
