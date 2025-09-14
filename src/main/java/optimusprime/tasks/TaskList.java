@@ -2,6 +2,7 @@ package optimusprime.tasks;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 import optimusprime.exceptions.InvalidArgumentException;
@@ -209,6 +210,73 @@ public class TaskList {
             assert !newList.isEmpty();
             return getTasks(newList);
         }
+    }
+
+    /**
+     * Private method to help with TaskList::sortTasks. Takes in a task and returns
+     * the date of the relevant subclass types
+     *
+     * @param task an object of the class Task
+     * @return a LocalDate object of the input Task
+     */
+    private LocalDate getTaskDate(Task task) {
+
+        if (task instanceof Deadlines) {
+            return ((Deadlines) task).getDeadline()[0];
+        } else if (task instanceof Events) {
+            return ((Events) task).getFromDate();
+        } else if (task instanceof Todos) {
+            return LocalDate.now();
+        }
+        return LocalDate.now();
+    }
+
+    /**
+     * This method helps sort the TaskList with respect to either the dates of
+     * the tasks or the description of the tasks. The sort can either be in ascending
+     * order or descending order. The input format should follow
+     * sort task/date ascending/descending
+     *
+     * @param sortData metadata that is parsed from user input - contains sortType and sortOrder
+     * @return
+     * @throws InvalidArgumentException
+     */
+    public String sortTasks(String[] sortData) throws InvalidArgumentException {
+        String sortType = sortData[0];
+        String sortOrder = sortData[1];
+
+        if (!sortOrder.contains("ascending") && !sortOrder.contains("descending")) {
+            throw new InvalidArgumentException("Missing valid argument for sorting order!\n" +
+                    "Follow the format - sort task/date ascending/descending");
+        }
+
+        if (!sortType.contains("task") && !sortType.contains("date")) {
+            throw new InvalidArgumentException("Missing valid argument for sort option!\n" +
+                    "Follow the format - sort task/date ascending/descending");
+        }
+
+
+        if (sortType.equals("date")) {
+            if (sortOrder.equals("ascending")) {
+                taskList.sort(Comparator.comparing(this::getTaskDate));
+            } else {
+                taskList.sort(Comparator.comparing(this::getTaskDate).reversed());
+            }
+        } else {
+            if (sortOrder.equals("ascending")) {
+                taskList.sort(Comparator.comparing(Task::getName));
+            } else {
+                taskList.sort(Comparator.comparing(Task::getName).reversed());
+            }
+        }
+
+
+        StringBuilder result = new StringBuilder();
+        for (Task task : taskList) {
+            result.append(task.toString()).append("\n");
+        }
+        return "Understood. Here is your sorted list!\n\n" + result.toString();
+
     }
 
     /**
