@@ -236,11 +236,13 @@ public class TaskList {
 
     /**
      * This method helps sort the TaskList with respect to either the dates of
-     * the tasks or the description of the tasks. The sort can either be in ascending
+     * the tasks or the description of the tasks. The sort can either be in
+     * ascending
      * order or descending order. The input format should follow
      * sort task/date ascending/descending
      *
-     * @param sortData metadata that is parsed from user input - contains sortType and sortOrder
+     * @param sortData metadata that is parsed from user input - contains sortType
+     *                 and sortOrder
      * @return
      * @throws InvalidArgumentException
      */
@@ -249,15 +251,14 @@ public class TaskList {
         String sortOrder = sortData[1];
 
         if (!sortOrder.contains("ascending") && !sortOrder.contains("descending")) {
-            throw new InvalidArgumentException("Missing valid argument for sorting order!\n" +
-                    "Follow the format - sort task/date ascending/descending");
+            throw new InvalidArgumentException("Missing valid argument for sorting order!\n"
+                    + "Follow the format - sort task/date ascending/descending");
         }
 
         if (!sortType.contains("task") && !sortType.contains("date")) {
-            throw new InvalidArgumentException("Missing valid argument for sort option!\n" +
-                    "Follow the format - sort task/date ascending/descending");
+            throw new InvalidArgumentException("Missing valid argument for sort option!\n"
+                    + "Follow the format - sort task/date ascending/descending");
         }
-
 
         if (sortType.equals("date")) {
             if (sortOrder.equals("ascending")) {
