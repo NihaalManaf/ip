@@ -56,47 +56,37 @@ public class TaskList {
      *                                  proceeded by the keywords are
      *                                  missing/invalid
      */
-    public String createTask(String taskName, String metadata) throws InvalidArgumentException {
+    public String createTask(String taskName, String dates) throws InvalidArgumentException {
 
         Task task;
         String name = "";
-        if (!metadata.contains("/")) {
-            name = metadata;
+        if (!dates.contains("/")) {
+            name = dates;
         } else {
-            name = metadata.substring(0, metadata.indexOf("/")).trim();
+            name = dates.substring(0, dates.indexOf("/")).trim();
         }
 
-        if (Objects.equals(taskName, "todo")) {
-            task = new Todos(name, false);
+        if (Objects.equals(taskName, "todo") && dates.isEmpty()) {
+            throw new InvalidArgumentException(
+                    "Human... You must do something...\nTell me what you want to do after the todo command...");
+        } else if (Objects.equals(taskName, "deadline") && !dates.contains("/by")) {
+            throw new MissingDeadlineArgumentException(
+                    "The autobots normally enter their deadline proceeding a '/by' command...");
+        } else if (Objects.equals(taskName, "event") && (!dates.contains("/from") || !dates.contains("/to"))) {
+            throw new MissingEventArgumentException(
+                    "The autobots normally enter their event proceeding a '/from' and '/to' command...");
+        }
 
-            if (metadata.isEmpty()) {
-                throw new InvalidArgumentException(
-                        "Human... You must do something...\nTell me what you want to do after the todo command...");
-            }
-
-        } else if (Objects.equals(taskName, "deadline")) {
-            if (!metadata.contains("/by")) {
-                throw new MissingDeadlineArgumentException(
-                        "The autobots normally enter their deadline proceeding a '/by' command...");
-            }
-            LocalDate[] localDate = Parser.deadlineDateParser(metadata);
-            task = new Deadlines(name, localDate, false);
-
+        LocalDate[] metadata = new LocalDate[2];
+        if (Objects.equals(taskName, "deadline")) {
+            metadata = Parser.deadlineDateParser(dates);
         } else if (Objects.equals(taskName, "event")) {
-            String firstSubString = "/from";
-            String secondSubString = "/to";
+            metadata = Parser.eventDateParser(dates);
+        }
 
-            LocalDate[] localDate = Parser.eventDateParser(metadata);
+        task = Task.createTask(taskName, false, name, metadata);
 
-            if (!metadata.contains(firstSubString) || !metadata.contains(secondSubString)) {
-                throw new MissingEventArgumentException(
-                        "The autobots normally enter their event proceeding a '/from' and '/to' command...");
-            }
-
-            assert localDate != null;
-            task = new Events(name, localDate, false);
-
-        } else {
+        if (task == null) {
             return "Error in reading task!";
         }
 
