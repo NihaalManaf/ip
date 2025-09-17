@@ -2,10 +2,7 @@
 
 <div align="center">
 
-![Java](https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk)
-![JavaFX](https://img.shields.io/badge/JavaFX-17.0.7-blue?style=for-the-badge&logo=openjdk)
-![Gradle](https://img.shields.io/badge/Gradle-7.1.2-green?style=for-the-badge&logo=gradle)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Optimus Prime Task Manager UI](Ui.png)
 
 _A powerful task management application inspired by the legendary Autobot leader Optimus Prime_
 
