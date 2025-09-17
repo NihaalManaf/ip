@@ -55,7 +55,6 @@ public class OptimusPrime {
             tasks = new TaskList();
         }
 
-        System.out.println("User:");
         String inputCommand = input.split(" ")[0];
         CommandType commandType = CommandType.runCommand(inputCommand);
 

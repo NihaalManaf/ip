@@ -68,7 +68,7 @@ public class MainWindow extends Application {
         userInput = new TextField();
         AnchorPane mainLayout = new AnchorPane();
 
-        stage.setTitle("Duke");
+        stage.setTitle("Optimus Prime");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
