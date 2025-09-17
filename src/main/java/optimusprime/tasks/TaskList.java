@@ -200,14 +200,14 @@ public class TaskList {
 
         TaskList newList = new TaskList();
         ArrayList<Task> currentList = getList();
-        boolean foundKeyword = false;
+        boolean isKeywordFound = false;
         for (Task task : currentList) {
             if (Task.getName(task).contains(keyword)) {
                 newList.addToList(task);
-                foundKeyword = true;
+                isKeywordFound = true;
             }
         }
-        if (!foundKeyword) {
+        if (!isKeywordFound) {
             return "There are no matches with your keyword!";
         } else {
             assert !newList.isEmpty();
