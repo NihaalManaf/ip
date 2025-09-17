@@ -30,7 +30,7 @@ public class TaskList {
         int initialLength = taskList.size();
         taskList.add(task);
         int finalLength = taskList.size();
-        assert initialLength == finalLength - 1; //added assert for the sake of A-Assertion. Unnecessary here.
+        assert initialLength == finalLength - 1; // added assert for the sake of A-Assertion. Unnecessary here.
     }
 
     /**
@@ -53,7 +53,8 @@ public class TaskList {
      * @return A String that is to be displayed to the user after task has been
      *         added
      * @throws InvalidArgumentException This exception is thrown when the argument
-     * proceeded by the keywords are missing/invalid
+     *                                  proceeded by the keywords are
+     *                                  missing/invalid
      */
     public String createTask(String taskName, String metadata) throws InvalidArgumentException {
 
@@ -165,8 +166,10 @@ public class TaskList {
      *
      * @param i index number of task
      * @return Delete message that includes deleted task
-     * @throws InvalidDeleteArgumentException This exception is thrown when the argument
-     * proceeded by the keywords are missing/invalid
+     * @throws InvalidDeleteArgumentException This exception is thrown when the
+     *                                        argument
+     *                                        proceeded by the keywords are
+     *                                        missing/invalid
      */
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
         i--;
@@ -269,7 +272,6 @@ public class TaskList {
                 taskList.sort(Comparator.comparing(Task::getName).reversed());
             }
         }
-
 
         StringBuilder result = new StringBuilder();
         for (Task task : taskList) {
