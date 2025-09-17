@@ -2,6 +2,7 @@ package optimusprime.tasks;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 import optimusprime.exceptions.InvalidArgumentException;
@@ -15,8 +16,7 @@ import optimusprime.parser.Parser;
  */
 public class TaskList {
 
-    private Task[] list = new Task[100];
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
 
     public TaskList() {
     }
@@ -27,7 +27,10 @@ public class TaskList {
      * @param task Object Task
      */
     public void addToList(Task task) {
+        int initialLength = taskList.size();
         taskList.add(task);
+        int finalLength = taskList.size();
+        assert initialLength == finalLength - 1; // added assert for the sake of A-Assertion. Unnecessary here.
     }
 
     /**
@@ -45,11 +48,13 @@ public class TaskList {
      * task list after task instantiation
      *
      * @param taskName A String of either 'todo', 'event', 'deadline'
-     * @param metadata A String consisting of decription of task along with dates
-     *                 and commands that preceed them
+     * @param metadata A String consisting of description of task along with dates
+     *                 and commands that preceded them
      * @return A String that is to be displayed to the user after task has been
      *         added
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException This exception is thrown when the argument
+     *                                  proceeded by the keywords are
+     *                                  missing/invalid
      */
     public String createTask(String taskName, String metadata) throws InvalidArgumentException {
 
@@ -88,7 +93,9 @@ public class TaskList {
                         "The autobots normally enter their event proceeding a '/from' and '/to' command...");
             }
 
+            assert localDate != null;
             task = new Events(name, localDate, false);
+
         } else {
             return "Error in reading task!";
         }
@@ -107,10 +114,10 @@ public class TaskList {
      * @return Returns the same Task object but modified with complete status
      */
     public Task markComplete(int i) {
-
         if (i < 1 || i > taskList.size()) {
             return null;
         }
+        assert i < taskList.size();
         Task task = taskList.get(i - 1);
         task.markComplete();
         return task;
@@ -123,10 +130,10 @@ public class TaskList {
      * @return Returns the original Task object but modified with incomplete status
      */
     public Task markIncomplete(int i) {
-
         if (i < 1 || i > taskList.size()) {
             return null;
         }
+        assert i < taskList.size();
         Task task = taskList.get(i - 1);
         task.markUncompleted();
         return task;
@@ -159,7 +166,10 @@ public class TaskList {
      *
      * @param i index number of task
      * @return Delete message that includes deleted task
-     * @throws InvalidDeleteArgumentException
+     * @throws InvalidDeleteArgumentException This exception is thrown when the
+     *                                        argument
+     *                                        proceeded by the keywords are
+     *                                        missing/invalid
      */
     public String deleteTask(int i) throws InvalidDeleteArgumentException {
         i--;
@@ -200,8 +210,76 @@ public class TaskList {
         if (!foundKeyword) {
             return "There are no matches with your keyword!";
         } else {
+            assert !newList.isEmpty();
             return getTasks(newList);
         }
+    }
+
+    /**
+     * Private method to help with TaskList::sortTasks. Takes in a task and returns
+     * the date of the relevant subclass types
+     *
+     * @param task an object of the class Task
+     * @return a LocalDate object of the input Task
+     */
+    private LocalDate getTaskDate(Task task) {
+
+        if (task instanceof Deadlines) {
+            return ((Deadlines) task).getDeadline()[0];
+        } else if (task instanceof Events) {
+            return ((Events) task).getFromDate();
+        } else if (task instanceof Todos) {
+            return LocalDate.now();
+        }
+        return LocalDate.now();
+    }
+
+    /**
+     * This method helps sort the TaskList with respect to either the dates of
+     * the tasks or the description of the tasks. The sort can either be in
+     * ascending
+     * order or descending order. The input format should follow
+     * sort task/date ascending/descending
+     *
+     * @param sortData metadata that is parsed from user input - contains sortType
+     *                 and sortOrder
+     * @return
+     * @throws InvalidArgumentException
+     */
+    public String sortTasks(String[] sortData) throws InvalidArgumentException {
+        String sortType = sortData[0];
+        String sortOrder = sortData[1];
+
+        if (!sortOrder.contains("ascending") && !sortOrder.contains("descending")) {
+            throw new InvalidArgumentException("Missing valid argument for sorting order!\n"
+                    + "Follow the format - sort task/date ascending/descending");
+        }
+
+        if (!sortType.contains("task") && !sortType.contains("date")) {
+            throw new InvalidArgumentException("Missing valid argument for sort option!\n"
+                    + "Follow the format - sort task/date ascending/descending");
+        }
+
+        if (sortType.equals("date")) {
+            if (sortOrder.equals("ascending")) {
+                taskList.sort(Comparator.comparing(this::getTaskDate));
+            } else {
+                taskList.sort(Comparator.comparing(this::getTaskDate).reversed());
+            }
+        } else {
+            if (sortOrder.equals("ascending")) {
+                taskList.sort(Comparator.comparing(Task::getName));
+            } else {
+                taskList.sort(Comparator.comparing(Task::getName).reversed());
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Task task : taskList) {
+            result.append(task.toString()).append("\n");
+        }
+        return "Understood. Here is your sorted list!\n\n" + result.toString();
+
     }
 
     /**
